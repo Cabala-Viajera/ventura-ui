@@ -12,9 +12,6 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.config({
-    extends: ["eslint:recommended"],
-  }),
   ...compat.extends(
     "eslint:recommended",
     "next/core-web-vitals",
