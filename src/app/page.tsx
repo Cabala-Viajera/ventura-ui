@@ -1,3 +1,9 @@
+import { Hero } from "@components";
+
 export default function Page() {
-  return <div></div>;
+  return (
+    <>
+      <Hero />
+    </>
+  );
 }

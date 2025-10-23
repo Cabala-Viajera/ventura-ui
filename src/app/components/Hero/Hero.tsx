@@ -1,0 +1,30 @@
+import React from "react";
+import Image from "next/image";
+
+const Hero = () => {
+  return (
+    <section className="w-full">
+      <div className="relative w-full h-[500px] aspect-video">
+        <Image
+          src="/assets/hero01.jpg"
+          alt="Hero Image"
+          fill
+          style={{ objectFit: "cover" }}
+          sizes="100vw"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/80"></div>
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+          <h2 className="text-6xl font-bold text-shadow-sm text-shadow-white ">
+            Descubre tu próxima aventura
+          </h2>
+          <p className="mt-4 text-2xl">
+            Guias para mochileros y viajeros frecuentes
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
