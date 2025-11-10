@@ -8,6 +8,10 @@ on:
     branches:
       - main
       - develop
+env:
+  NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+  NEXT_PUBLIC_SANITY_DATASET: ${{ vars.SANITY_DATASET }}
+
 jobs:
   Ventura-UI:
     runs-on: ubuntu-latest
