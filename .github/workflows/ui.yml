@@ -10,8 +10,8 @@ on:
       - develop
 env:
   NODE_ENV: development
-  SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
-  SANITY_DATASET: ${{ vars.SANITY_DATASET }}
+  NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+  NEXT_PUBLIC_SANITY_DATASET: ${{ vars.SANITY_DATASET }}
 
 jobs:
   Ventura-UI:
