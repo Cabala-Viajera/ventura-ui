@@ -8,6 +8,10 @@ on:
     branches:
       - main
       - develop
+
+env:
+  NODE_ENV: development
+
 jobs:
   Ventura-UI:
     runs-on: ubuntu-latest
