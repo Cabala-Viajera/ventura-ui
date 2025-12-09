@@ -19,7 +19,7 @@ const MainBlogList = async (): Promise<React.ReactNode> => {
   const posts: Post[] = await sanityClient.fetch(POSTS_QUERY)
   return (
     <div className='m-10'>
-      {posts && posts.length > 0 ? (
+      {posts.length > 0 ? (
         posts.map((post: Post) => <Card key={post._id} title={post.title} />)
       ) : (
         <div className='flex flex-col items-center justify-center w-[100%] gap-6'>
