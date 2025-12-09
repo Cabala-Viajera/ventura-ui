@@ -20,8 +20,9 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@components": ["./src/app/components/index"],
-      "@sanity/client": ["./src/app/utils/sanity.ts"]
+      "@components": ["./src/app/_components/index"],
+      "@sanity/client": ["./src/app/_utils/sanity"],
+      "@skeletons": ["./src/app/_skeletons/index"]
     }
   },
   "include": [

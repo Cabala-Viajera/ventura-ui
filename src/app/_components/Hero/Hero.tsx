@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 const Hero = () => {
   return (
-    <section className='w-full'>
+    <section className='w-full border-b-4 border-primary'>
       <div className='relative w-full h-[300px] lg:h-[550px] aspect-video'>
         <Image
           src='/assets/hero01.jpg'
