@@ -1,30 +1,30 @@
-import React from "react";
-import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
-import { Header } from "@components";
-import "./globals.css";
+import React from 'react'
+import type { Metadata } from 'next'
+import { Roboto } from 'next/font/google'
+import { Header } from '@components'
+import './globals.css'
 
 const roboto = Roboto({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-});
+  weight: ['400', '700'],
+  subsets: ['latin'],
+})
 
 export const metadata: Metadata = {
-  title: "Cábala Viajera",
-  description: "Blog de viajes y experiencias personales alrededor del mundo.",
-};
+  title: 'Cábala Viajera',
+  description: 'Blog de viajes y experiencias personales alrededor del mundo.',
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={`${roboto.className} antialiased`}>
         <Header />
         {children}
       </body>
     </html>
-  );
+  )
 }
