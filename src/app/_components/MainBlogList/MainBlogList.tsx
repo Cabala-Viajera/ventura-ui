@@ -12,20 +12,12 @@ interface Post {
 
 export default async function MainBlogList(): Promise<JSX.Element> {
   let posts: Post[] = []
-  let loadError = false
 
   try {
     const result = await sanityClient.fetch<Post[]>(POSTS_QUERY)
     posts = Array.isArray(result) ? result : []
   } catch (err) {
-    loadError = true
     throw new Error('Failed to load posts', { cause: err })
-  }
-
-  if (loadError) {
-    return (
-      <div className='m-10 text-center text-gray-950'>Error loading posts.</div>
-    )
   }
 
   return (
