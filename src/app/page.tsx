@@ -6,7 +6,7 @@ export default async function Page() {
   return (
     <>
       <Hero />
-      <section className='lg:w-[50%]'>
+      <section className='lg:w-[60%]'>
         <Suspense fallback={<MainBlogListSkeleton />}>
           <MainBlogList />
         </Suspense>
