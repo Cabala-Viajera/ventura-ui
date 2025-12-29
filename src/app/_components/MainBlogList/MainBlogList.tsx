@@ -3,11 +3,17 @@ import { sanityClient } from '@/app/_utils/sanity'
 import Image from 'next/image'
 import { JSX } from 'react'
 
-const POSTS_QUERY = `*[_type == "post"]{ _id, title }`
+const POSTS_QUERY = `*[_type == "post"][0...6]{ _id, title, description, imgUrl{ asset->{ url } } }`
 
 interface Post {
   _id: string
   title: string
+  description: string
+  imgUrl?: {
+    asset?: {
+      url?: string
+    }
+  }
 }
 
 export default async function MainBlogList(): Promise<JSX.Element> {
@@ -26,22 +32,32 @@ export default async function MainBlogList(): Promise<JSX.Element> {
   }
 
   return (
-    <div className='m-10 flex flex-wrap gap-6 justify-center lg:justify-start '>
-      {posts.length > 0 ? (
-        posts.map(post => <Card key={post._id} title={post.title} />)
-      ) : (
-        <div className='flex flex-col items-center justify-center w-[100%] gap-6'>
-          <Image
-            src='/assets/not-found.png'
-            alt='No posts'
-            width={400}
-            height={400}
-          />
-          <p className={`text-gray-950 text-4xl font-bold -ml-24`}>
-            Nada por aquí
-          </p>
-        </div>
-      )}
-    </div>
+    <>
+      <h2 className='m-10 text-4xl font-bold'>Últimas publicaciones</h2>
+      <div className='m-10 flex flex-wrap gap-6 justify-center lg:justify-start '>
+        {posts.length > 0 ? (
+          posts.map(post => (
+            <Card
+              key={post._id}
+              title={post.title}
+              description={post.description}
+              imgUrl={post.imgUrl?.asset?.url}
+            />
+          ))
+        ) : (
+          <div className='flex flex-col items-center justify-center w-[100%] gap-6'>
+            <Image
+              src='/assets/not-found.png'
+              alt='No posts'
+              width={400}
+              height={400}
+            />
+            <p className={`text-gray-950 text-4xl font-bold -ml-24`}>
+              Nada por aquí
+            </p>
+          </div>
+        )}
+      </div>
+    </>
   )
 }

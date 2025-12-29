@@ -6,10 +6,12 @@ export default async function Page() {
   return (
     <>
       <Hero />
-      <section className='lg:w-[60%]'>
-        <Suspense fallback={<MainBlogListSkeleton />}>
-          <MainBlogList />
-        </Suspense>
+      <section className='flex justify-start my-8 px-4'>
+        <div className='w-[100%] lg:w-[1200px]'>
+          <Suspense fallback={<MainBlogListSkeleton />}>
+            <MainBlogList />
+          </Suspense>
+        </div>
       </section>
     </>
   )
