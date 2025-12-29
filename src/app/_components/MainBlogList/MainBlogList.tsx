@@ -1,4 +1,4 @@
-import { Card } from '@components'
+import { Card, Error } from '@components'
 import { sanityClient } from '@/app/_utils/sanity'
 import Image from 'next/image'
 import { JSX } from 'react'
@@ -12,16 +12,21 @@ interface Post {
 
 export default async function MainBlogList(): Promise<JSX.Element> {
   let posts: Post[] = []
+  let isError = false
 
   try {
     const result = await sanityClient.fetch<Post[]>(POSTS_QUERY)
     posts = Array.isArray(result) ? result : []
-  } catch (err) {
-    throw new Error('Failed to load posts', { cause: err })
+  } catch {
+    isError = true
+  }
+
+  if (isError) {
+    return <Error />
   }
 
   return (
-    <div className='m-10'>
+    <div className='m-10 flex flex-wrap gap-6 justify-center lg:justify-start '>
       {posts.length > 0 ? (
         posts.map(post => <Card key={post._id} title={post.title} />)
       ) : (
@@ -32,7 +37,9 @@ export default async function MainBlogList(): Promise<JSX.Element> {
             width={400}
             height={400}
           />
-          <p className={`text-gray-950 text-4xl font-bold`}>Nada por aquí</p>
+          <p className={`text-gray-950 text-4xl font-bold -ml-24`}>
+            Nada por aquí
+          </p>
         </div>
       )}
     </div>

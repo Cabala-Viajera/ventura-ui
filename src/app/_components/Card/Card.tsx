@@ -19,7 +19,7 @@ const Card = (props: CardProps) => {
         <div className='absolute bottom-5 left-5 text-white  text-shadow-sm/10 text-shadow-white'>
           <h3 className='text-2xl font-bold '>{props.title}</h3>
           <p className='text-sm mt-1'>
-            A journey through the Land of the Morning Calm
+            Por Claudio Moreno &bull; 5 min de lectura
           </p>
         </div>
       </div>
