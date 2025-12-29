@@ -4,7 +4,7 @@ const MainBlogListSkeleton = () => {
       {Array.from({ length: 6 }).map((_, index) => (
         <div
           key={index}
-          className='w-[300px] h-[200px] bg-orange-100 animate-pulse rounded-2xl'
+          className='w-[350px] h-[250px] bg-orange-100 animate-pulse rounded-2xl'
         ></div>
       ))}
     </div>
