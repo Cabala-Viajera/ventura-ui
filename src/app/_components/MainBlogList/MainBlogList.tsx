@@ -29,7 +29,7 @@ export default async function MainBlogList(): Promise<JSX.Element> {
         {posts.length > 0 ? (
           posts.map(post =>
             post.slug?.current ? (
-              <Link key={post._id} href={`/${post.slug.current}`}>
+              <Link key={post._id} href={`/${post.slug?.current}`}>
                 <Card
                   title={post.title}
                   description={post.description}
