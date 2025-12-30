@@ -12,10 +12,11 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   }
   let isError = false
   const { slug } = await params
-  const GET_POST_BY_SLUG = `*[_type == "post" && slug.current == "${slug}"][0]{ _id, title, slug{current}, description, imgUrl{ asset->{ url } }, thumbnailImgUrl{ asset->{ url } } }`
+  const getPostBySlugQuery =
+    '*[_type == "post" && slug.current == $slug][0]{ _id, title, slug{current}, description, imgUrl{ asset->{ url } }, thumbnailImgUrl{ asset->{ url } } }'
 
   try {
-    post = await sanityClient.fetch<Post>(GET_POST_BY_SLUG)
+    post = await sanityClient.fetch<Post>(getPostBySlugQuery, { slug })
   } catch {
     isError = true
   }
@@ -24,12 +25,15 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
     return <Error />
   }
 
+  if (!post) {
+    return <Error />
+  }
+
   return (
     <>
       <Hero
         title={post.title}
-        subtitle={''}
-        imgHeight={350}
+        imgHeight={'350'}
         imgUrl={post.thumbnailImgUrl?.asset?.url || ''}
       />
     </>

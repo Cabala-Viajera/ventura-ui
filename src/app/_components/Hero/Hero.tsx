@@ -3,8 +3,8 @@ import Image from 'next/image'
 
 interface HeroProps {
   imgUrl?: string
-  imgHeight?: number
-  title: string
+  imgHeight?: string
+  title?: string
   subtitle?: string
 }
 
@@ -14,7 +14,10 @@ const Hero = (props: HeroProps) => {
     <section className='w-full border-b-4 border-primary'>
       <div
         className={`relative w-full h-[300px] lg:h-[550px] aspect-video`}
-        style={{ height: props.imgHeight || '550px' }}
+        style={{
+          height:
+            props.imgHeight !== undefined ? `${props.imgHeight}px` : '550px',
+        }}
       >
         <Image
           src={imgUrl || '/assets/hero01.jpg'}
