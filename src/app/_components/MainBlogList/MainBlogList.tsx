@@ -2,19 +2,10 @@ import { Card, Error } from '@components'
 import { sanityClient } from '@/app/_utils/sanity'
 import Image from 'next/image'
 import { JSX } from 'react'
+import Link from 'next/link'
+import { Post } from '@/app/_models/Post'
 
-const POSTS_QUERY = `*[_type == "post"][0...6]{ _id, title, description, imgUrl{ asset->{ url } } }`
-
-interface Post {
-  _id: string
-  title: string
-  description: string
-  imgUrl?: {
-    asset?: {
-      url?: string
-    }
-  }
-}
+const POSTS_QUERY = `*[_type == "post"][0...6]{ _id, title, slug{current}, description, imgUrl{ asset->{ url } } }`
 
 export default async function MainBlogList(): Promise<JSX.Element> {
   let posts: Post[] = []
@@ -37,12 +28,13 @@ export default async function MainBlogList(): Promise<JSX.Element> {
       <div className='m-10 flex flex-wrap gap-6 justify-center lg:justify-start '>
         {posts.length > 0 ? (
           posts.map(post => (
-            <Card
-              key={post._id}
-              title={post.title}
-              description={post.description}
-              imgUrl={post.imgUrl?.asset?.url}
-            />
+            <Link key={post._id} href={`/${post.slug.current}`}>
+              <Card
+                title={post.title}
+                description={post.description}
+                imgUrl={post.imgUrl?.asset?.url}
+              />
+            </Link>
           ))
         ) : (
           <div className='flex flex-col items-center justify-center w-[100%] gap-6'>
