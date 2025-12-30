@@ -4,12 +4,7 @@ import { Post } from '../_models/Post'
 import { Error } from '@components'
 
 const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
-  let post: Post = {
-    _id: '',
-    title: '',
-    slug: { current: '' },
-    description: '',
-  }
+  let post: Post | null = null
   let isError = false
   const { slug } = await params
   const getPostBySlugQuery =
