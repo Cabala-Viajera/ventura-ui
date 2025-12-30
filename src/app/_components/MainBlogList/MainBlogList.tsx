@@ -27,15 +27,24 @@ export default async function MainBlogList(): Promise<JSX.Element> {
       <h2 className='m-10 text-4xl font-bold'>Últimas publicaciones</h2>
       <div className='m-10 flex flex-wrap gap-6 justify-center lg:justify-start '>
         {posts.length > 0 ? (
-          posts.map(post => (
-            <Link key={post._id} href={`/${post.slug.current}`}>
+          posts.map(post =>
+            post.slug?.current ? (
+              <Link key={post._id} href={`/${post.slug.current}`}>
+                <Card
+                  title={post.title}
+                  description={post.description}
+                  imgUrl={post.imgUrl?.asset?.url}
+                />
+              </Link>
+            ) : (
               <Card
+                key={post._id}
                 title={post.title}
                 description={post.description}
                 imgUrl={post.imgUrl?.asset?.url}
               />
-            </Link>
-          ))
+            )
+          )
         ) : (
           <div className='flex flex-col items-center justify-center w-[100%] gap-6'>
             <Image
