@@ -5,12 +5,6 @@ const Header = () => {
     <div className=' bg-white w-full py-2 px-4  font-bold  border-b-1 border-primary flex justify-between items-center'>
       <Link href={'/'}>
         <div className='flex items-center gap-4 text-primary my-6 mx-3'>
-          {/* <Image
-          src='/assets/logo.png'
-          alt='Cábala Viajera logo'
-          width={100}
-          height={100}
-        /> */}
           <h1 className='text-4xl'>Cábala Viajera</h1>
         </div>
       </Link>

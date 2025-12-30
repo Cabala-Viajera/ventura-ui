@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 interface HeroProps {
   imgUrl?: string
-  imgHeight?: string
+  imgHeight?: number
   title?: string
   subtitle?: string
 }
@@ -16,12 +16,12 @@ const Hero = (props: HeroProps) => {
         className={`relative w-full h-[300px] lg:h-[550px] aspect-video`}
         style={{
           height:
-            props.imgHeight !== undefined ? `${props.imgHeight}px` : '550px',
+            props.imgHeight !== undefined ? `${props.imgHeight}px` : undefined,
         }}
       >
         <Image
           src={imgUrl || '/assets/hero01.jpg'}
-          alt='Hero Image'
+          alt={props.title || 'default hero image'}
           fill
           style={{ objectFit: 'cover' }}
           sizes='100vw'
