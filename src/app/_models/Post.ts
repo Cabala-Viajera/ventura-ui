@@ -4,7 +4,7 @@ export interface Post {
   _id: string
   title: string
   description: string
-  country: string
+  country?: string
   slug?: { current: string }
   imgUrl?: {
     asset?: {
