@@ -1,3 +1,4 @@
+import urlBuilder from '@sanity/image-url'
 import { createClient as createSanityClient } from 'next-sanity'
 
 export const sanityClient = createSanityClient({
@@ -5,4 +6,9 @@ export const sanityClient = createSanityClient({
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'development',
   apiVersion: '2025-11-09',
   useCdn: false,
+})
+
+export const builder = urlBuilder({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'development',
 })

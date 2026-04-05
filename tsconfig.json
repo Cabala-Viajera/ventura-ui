@@ -21,7 +21,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@components": ["./src/app/_components/index"],
-      "@sanity/client": ["./src/app/_utils/sanity"],
+      "@utils/sanityClient": ["./src/app/_utils/sanity"],
       "@skeletons": ["./src/app/_skeletons/index"]
     }
   },
