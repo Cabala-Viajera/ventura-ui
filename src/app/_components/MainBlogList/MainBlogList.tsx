@@ -1,5 +1,5 @@
 import { Card, Error } from '@components'
-import { sanityClient } from '@/app/_utils/sanity'
+import { sanityClient } from '@utils/sanityClient'
 import Image from 'next/image'
 import { JSX } from 'react'
 import Link from 'next/link'
