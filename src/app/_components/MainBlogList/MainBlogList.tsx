@@ -23,9 +23,11 @@ export default async function MainBlogList(): Promise<JSX.Element> {
   }
 
   return (
-    <>
-      <h2 className='m-10 text-4xl font-bold'>Últimas publicaciones</h2>
-      <div className='m-10 flex flex-wrap gap-6 justify-center lg:justify-start '>
+    <div className='w-full xl:w-2/3'>
+      <h2 className='m-10 text-4xl font-bold text-center lg:text-start'>
+        Últimas publicaciones
+      </h2>
+      <div className='m-0 lg:m-10 flex flex-wrap gap-6 items-center justify-center lg:justify-start w-[1200px]'>
         {posts.length > 0 ? (
           posts.map(post =>
             post.slug?.current ? (
@@ -59,6 +61,50 @@ export default async function MainBlogList(): Promise<JSX.Element> {
           </div>
         )}
       </div>
-    </>
+      <div className=' mt-5 text-center w-[1200px]'>
+        <Link
+          href='#'
+          className='mt-4  text-primary font-bold  cursor-pointer underline text-xl hover:opacity-80 transition-opacity'
+          aria-label='Ver historia del mochilero'
+        >
+          Ver más
+        </Link>
+      </div>
+      <div className='my-20'>
+        <h2 className='m-10 text-4xl font-bold text-center lg:text-start'>
+          Quienes somos
+        </h2>
+        <div className='flex flex-row items-center gap-10 mx-10'>
+          <div>
+            <div className='w-[200px] relative h-[200px]'>
+              <Image
+                fill
+                priority={false}
+                className='rounded-full object-cover shadow-xl/30'
+                src='/defaultProfile.png'
+                alt={'Quienes somos'}
+                sizes='(max-width: 200px) 100vw, 200px'
+              />
+            </div>
+          </div>
+          <div className='text-justify p-10'>
+            <p>
+              Hola! <br /> Mi nombre es Claudio, soy desarrollador de software y
+              viajero mochilero. Eh visitado 8 paises y 20 ciudades alrededor
+              del mundo en tres años y escribo este blog para compartir mis
+              experiencias y poder ayudar a otros viajeros con las dudas que yo
+              tenia cuando planeaba mis viajes. Me gusta cumplir mis sueños
+              viajando y escuchar a otros compartir sus aventuras alrededor del
+              mundo. Espero pueda animarte a descubrir tu próximo destino.
+              <br />
+              <br />
+              <span className='italic'>
+                Mi objetivo viajero es darle la vuelta al mundo en 6 meses.
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
