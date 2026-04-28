@@ -1,7 +1,6 @@
-import { Hero } from '../_components'
 import { sanityClient } from '@utils/sanityClient'
 import { Post } from '../_models/Post'
-import { Error } from '@components'
+import { Error, Hero } from '@components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
@@ -36,9 +35,8 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
         imgHeight={350}
         imgUrl={post.thumbnailImgUrl?.asset?.url || ''}
       />
-
-      <div className='flex w-full px-4 py-8 gap-4'>
-        <div className='w-1/5 text-right font-bold text-primary px-5 flex items-center justify-end gap-2 cursor-pointer'>
+      <section className='flex min-h-[50vh] w-full px-4 my-10 gap-4'>
+        <div className='w-1/5 text-right font-bold text-primary px-5 flex items-start justify-end gap-2 cursor-pointer'>
           <Link href='/' className='flex items-center gap-2'>
             <FontAwesomeIcon
               icon={faArrowLeftLong}
@@ -49,7 +47,7 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
           </Link>
         </div>
         <div className='w-4/5'>
-          <h1 className='text-4xl font-bold px-5'>{post.title}</h1>
+          <h1 className='text-5xl font-bold px-5'>{post.title}</h1>
           <section className='px-5 py-8 text-lg'>
             <div className='mb-10'>{post.description}</div>
             <section className='text-justify pr-[20%]'>
@@ -61,7 +59,7 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
             </section>
           </section>
         </div>
-      </div>
+      </section>
     </>
   )
 }
