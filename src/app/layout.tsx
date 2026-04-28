@@ -1,7 +1,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
-import { Header } from '@components'
+import { Footer, Header } from '@components'
 import './globals.css'
 
 import { config } from '@fortawesome/fontawesome-svg-core'
@@ -28,6 +28,7 @@ export default function RootLayout({
       <body className={`${roboto.className} antialiased`}>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   )
