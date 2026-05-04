@@ -6,6 +6,7 @@ import './globals.css'
 
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
+import { SOCIAL_LINKS } from './_utils/constants'
 config.autoAddCss = false
 
 const roboto = Roboto({
@@ -28,7 +29,7 @@ export default function RootLayout({
       <body className={`${roboto.className} antialiased`}>
         <Header />
         {children}
-        <Footer />
+        <Footer socialLinks={SOCIAL_LINKS} />
       </body>
     </html>
   )
