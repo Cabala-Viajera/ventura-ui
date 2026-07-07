@@ -1,4 +1,4 @@
-import { FooterProps } from '@/app/_models/Post'
+import { FooterProps } from '@models'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import React from 'react'
