@@ -21,8 +21,10 @@
     "paths": {
       "@/*": ["./src/*"],
       "@components": ["./src/app/_components/index"],
+      "@hooks": ["./src/app/_hooks/index"],
       "@utils/sanityClient": ["./src/app/_utils/sanity"],
-      "@skeletons": ["./src/app/_skeletons/index"]
+      "@skeletons": ["./src/app/_skeletons/index"],
+      "@models": ["./src/app/_models/index"]
     }
   },
   "include": [

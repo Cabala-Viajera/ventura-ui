@@ -8,15 +8,7 @@ const eslintConfig = defineConfig([
   ...nextTs,
   {
     rules: {
-      'no-unused-vars': 'warn',
-      '@typescript-eslint/no-unused-vars': [
-        'warn',
-        {
-          varsIgnorePattern: '^_',
-          argsIgnorePattern: '^_',
-          caughtErrorsIgnorePattern: '^_',
-        },
-      ],
+      '@typescript-eslint/no-unused-vars': 'error',
     },
   },
   prettier,

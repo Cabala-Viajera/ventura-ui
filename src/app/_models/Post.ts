@@ -1,4 +1,3 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { TypedObject } from 'sanity'
 
 export interface Post {
@@ -18,21 +17,4 @@ export interface Post {
     }
   }
   content?: TypedObject[]
-}
-
-export interface FooterLink {
-  label: string
-  icon: IconProp
-  url: string
-}
-
-export interface FooterSection {
-  title: string
-  links: FooterLink[]
-}
-
-export interface FooterProps {
-  sections?: FooterSection[]
-  socialLinks?: FooterLink[]
-  copyrightText?: string
 }
