@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 const Error = () => {
   return (
-    <div className='m-10 text-center h-[400px] flex flex-col items-center justify-center'>
+    <div className='m-10 text-center w-full flex flex-col items-center justify-center'>
       <Image
         src='/assets/not-found.png'
         alt='No posts'

@@ -6,7 +6,7 @@ import './globals.css'
 
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import { SOCIAL_LINKS } from './_utils/constants'
+import { SITE_URL, SOCIAL_LINKS } from './_utils/constants'
 config.autoAddCss = false
 
 const roboto = Roboto({
@@ -14,9 +14,39 @@ const roboto = Roboto({
   subsets: ['latin'],
 })
 
+const title = 'Cábala Viajera'
+const description =
+  'Blog de viajes y experiencias personales alrededor del mundo.'
+
 export const metadata: Metadata = {
-  title: 'Cábala Viajera',
-  description: 'Blog de viajes y experiencias personales alrededor del mundo.',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: title,
+    template: `%s | ${title}`,
+  },
+  description,
+  openGraph: {
+    title,
+    description,
+    url: SITE_URL,
+    siteName: title,
+    locale: 'es_ES',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/site.webmanifest',
 }
 
 export default function RootLayout({
@@ -25,7 +55,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en'>
+    <html lang='es'>
       <body className={`${roboto.className} antialiased`}>
         <Header />
         {children}

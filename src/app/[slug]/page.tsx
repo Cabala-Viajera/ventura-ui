@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { sanityClient } from '@utils/sanityClient'
 import { Post } from '../_models/Post'
 import { Error, Hero } from '@components'
@@ -6,19 +7,60 @@ import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import { PortableText } from 'next-sanity'
 import { PortableTextImage } from '../_components/Sanity/SanityComponents'
+import { SITE_URL } from '../_utils/constants'
+
+const getPostBySlugQuery =
+  '*[_type == "post" && slug.current == $slug][0]{ _id, title, slug{current}, description, country ,imgUrl{ asset->{ url } }, thumbnailImgUrl{ asset->{ url } }, content }'
+
+const getPost = async (slug: string) => {
+  try {
+    return await sanityClient.fetch<Post | null>(getPostBySlugQuery, { slug })
+  } catch {
+    return null
+  }
+}
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> => {
+  const { slug } = await params
+  const post = await getPost(slug)
+
+  if (!post) {
+    return { title: 'Publicación no encontrada' }
+  }
+
+  const image = post.imgUrl?.asset?.url || post.thumbnailImgUrl?.asset?.url
+
+  return {
+    title: post.title,
+    description: post.description,
+    alternates: {
+      canonical: `${SITE_URL}/${slug}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      url: `${SITE_URL}/${slug}`,
+      type: 'article',
+      images: image ? [{ url: image }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.description,
+      images: image ? [image] : undefined,
+    },
+  }
+}
 
 const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
-  let post: Post | null = null
-  let isError = false
   const { slug } = await params
-  const getPostBySlugQuery =
-    '*[_type == "post" && slug.current == $slug][0]{ _id, title, slug{current}, description, country ,imgUrl{ asset->{ url } }, thumbnailImgUrl{ asset->{ url } }, content }'
-  try {
-    post = await sanityClient.fetch<Post | null>(getPostBySlugQuery, { slug })
-  } catch {
-    isError = true
-  }
-  if (isError || !post || !post._id) {
+  const post = await getPost(slug)
+
+  if (!post || !post._id) {
     return <Error />
   }
 
@@ -28,8 +70,21 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
     },
   }
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    image: post.imgUrl?.asset?.url || post.thumbnailImgUrl?.asset?.url,
+    mainEntityOfPage: `${SITE_URL}/${slug}`,
+  }
+
   return (
     <>
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Hero
         title={post.country || ''}
         imgHeight={350}

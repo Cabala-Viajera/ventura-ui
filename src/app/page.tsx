@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { Hero, MainBlogList, ProfileBackpackers } from '@components'
+import { AboutMe, Hero, MainBlogList } from '@components'
 import { MainBlogListSkeleton } from '@skeletons'
 
 export default async function Page() {
@@ -13,10 +13,10 @@ export default async function Page() {
         <Suspense fallback={<MainBlogListSkeleton />}>
           <div className='flex flex-col xl:flex-row'>
             <MainBlogList />
-            <ProfileBackpackers />
           </div>
         </Suspense>
       </section>
+      <AboutMe />
     </>
   )
 }
