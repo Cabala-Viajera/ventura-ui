@@ -4,6 +4,9 @@ import {
   faXTwitter,
 } from '@fortawesome/free-brands-svg-icons'
 
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://cabalaviajera.com'
+
 export const SOCIAL_LINKS = [
   {
     label: 'Twitter',
