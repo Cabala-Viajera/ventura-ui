@@ -23,6 +23,7 @@
     "@portabletext/react": "^6.0.3",
     "@sanity/client": "^7.21.0",
     "@sanity/image-url": "^1.2.0",
+    "@vercel/analytics": "^2.0.1",
     "next": "^16.2.3",
     "next-sanity": "^13.3.4",
     "react": "19.2.7",

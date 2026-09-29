@@ -1,6 +1,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 import { Footer, Header } from '@components'
 import './globals.css'
 
@@ -60,6 +61,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer socialLinks={SOCIAL_LINKS} />
+        <Analytics />
       </body>
     </html>
   )
