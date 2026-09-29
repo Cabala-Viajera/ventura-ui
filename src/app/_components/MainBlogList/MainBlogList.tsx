@@ -63,9 +63,9 @@ export default async function MainBlogList(): Promise<JSX.Element> {
       </div>
       <div className=' mt-5 text-center w-[1200px]'>
         <Link
-          href='#'
+          href='/articulos'
           className='mt-4  text-primary font-bold  cursor-pointer underline text-xl hover:opacity-80 transition-opacity'
-          aria-label='Ver historia del mochilero'
+          aria-label='Ver todos los artículos'
         >
           Ver más
         </Link>
