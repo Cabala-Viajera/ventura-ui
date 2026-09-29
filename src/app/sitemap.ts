@@ -23,6 +23,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: SITE_URL,
       lastModified: new Date(),
     },
+    {
+      url: `${SITE_URL}/articulos`,
+      lastModified: new Date(),
+    },
     ...postEntries,
   ]
 }

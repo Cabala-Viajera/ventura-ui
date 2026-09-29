@@ -5,3 +5,7 @@ vi.mock('next/image', () => ({
     <img alt={alt} src={src} />
   ),
 }))
+
+vi.mock('next/font/google', () => ({
+  Dongle: () => ({ className: '', variable: '', style: {} }),
+}))

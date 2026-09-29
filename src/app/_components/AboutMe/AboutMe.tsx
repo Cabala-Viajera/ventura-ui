@@ -20,7 +20,7 @@ export default function AboutMe(): JSX.Element {
             />
           </div>
         </div>
-        <div className='text-justify p-10'>
+        <div className='text-justify p-10 w-[50%]'>
           <p>
             Hola! <br /> Mi nombre es Claudio, soy desarrollador de software y
             viajero mochilero. Eh visitado 8 paises y 20 ciudades alrededor del
