@@ -1,17 +1,39 @@
 'use client'
 
-import { useId, useState } from 'react'
+import { useId, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { NotificationToast, type ToastNotification } from '../NotificationToast'
 
 const errorMessage = 'No pudimos suscribirte. Inténtalo de nuevo.'
 
 export default function NewsletterForm() {
   const id = useId()
+  const submitButtonRef = useRef<HTMLButtonElement>(null)
   const [email, setEmail] = useState('')
   const [pending, setPending] = useState(false)
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
+
+  const notification: ToastNotification | null = pending
+    ? {
+        title: 'Un momento…',
+        message: 'Estamos procesando tu suscripción…',
+        variant: 'loading',
+      }
+    : status === 'success'
+      ? {
+          title: '¡Gracias por suscribirte!',
+          message: 'Tu próxima aventura empieza en tu correo.',
+          variant: 'success',
+        }
+      : status === 'error'
+        ? {
+            title: 'Algo salió mal',
+            message: errorMessage,
+            variant: 'error',
+          }
+        : null
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -76,6 +98,7 @@ export default function NewsletterForm() {
             />
           </div>
           <button
+            ref={submitButtonRef}
             type='submit'
             disabled={pending}
             className='min-h-12 shrink-0 cursor-pointer rounded-xl bg-foreground px-6 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-foreground/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground motion-reduce:transition-none disabled:cursor-wait disabled:opacity-70'
@@ -88,17 +111,14 @@ export default function NewsletterForm() {
             )}
           </button>
         </div>
-        <p
-          role='status'
-          aria-live='polite'
-          aria-atomic='true'
-          className='mt-2 text-sm leading-6 text-foreground'
-        >
-          {pending && 'Estamos procesando tu suscripción…'}
-          {status === 'success' && '¡Gracias por suscribirte!'}
-          {status === 'error' && errorMessage}
-        </p>
       </form>
+      <NotificationToast
+        notification={notification}
+        onDismiss={() => {
+          setStatus('idle')
+          submitButtonRef.current?.focus({ preventScroll: true })
+        }}
+      />
       <ul
         className='mt-4 flex flex-wrap gap-x-4 gap-y-3 text-xs text-foreground'
         aria-label='Beneficios de la newsletter'

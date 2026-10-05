@@ -22,13 +22,14 @@ export default function AboutMe(): JSX.Element {
         </div>
         <div className='text-justify p-10 w-[50%] text-lg'>
           <p>
-            Hola! <br /> Mi nombre es Claudio, soy desarrollador de software y
-            viajero mochilero. Eh visitado 8 paises y 20 ciudades alrededor del
-            mundo en tres años y escribo este blog para compartir mis
-            experiencias y poder ayudar a otros viajeros con las dudas que yo
-            tenia cuando planeaba mis viajes. Me gusta cumplir mis sueños
-            viajando y escuchar a otros compartir sus aventuras alrededor del
-            mundo. Espero pueda animarte a descubrir tu próximo destino.
+            Hola! Mi nombre es Claudio, soy desarrollador de software y viajero
+            mochilero. <br />
+            Eh visitado 8 paises y 20 ciudades alrededor del mundo en tres años
+            y escribo este blog para compartir mis experiencias y poder ayudar a
+            otros viajeros con las dudas que yo tenia cuando planeaba mis
+            viajes. Me gusta cumplir mis sueños viajando y escuchar a otros
+            compartir sus aventuras alrededor del mundo. Espero pueda animarte a
+            descubrir tu próximo destino.
             <br />
             <br />
             <span className='italic'>

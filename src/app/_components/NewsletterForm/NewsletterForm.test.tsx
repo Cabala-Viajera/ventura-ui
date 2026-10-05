@@ -25,6 +25,8 @@ describe('NewsletterForm', () => {
     vi.stubGlobal('fetch', fetchMock)
     render(<NewsletterForm />)
 
+    expect(screen.getByRole('status').textContent).toBe('')
+
     const input = screen.getByLabelText(
       'Correo electrónico'
     ) as HTMLInputElement
@@ -51,6 +53,10 @@ describe('NewsletterForm', () => {
     )
     expect(input.value).toBe('')
     expect(button.disabled).toBe(false)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Cerrar notificación' }))
+    expect(screen.getByRole('status').textContent).toBe('')
+    expect(document.activeElement).toBe(button)
   })
 
   it.each(['http', 'network'])(
