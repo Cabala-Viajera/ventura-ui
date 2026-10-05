@@ -2,6 +2,7 @@ import { FooterProps } from '@models'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import React from 'react'
+import { NewsletterForm } from '../NewsletterForm'
 
 const Footer: React.FC<FooterProps> = ({
   socialLinks = [],
@@ -29,6 +30,8 @@ const Footer: React.FC<FooterProps> = ({
             )}
           </div>
         )}
+
+        <NewsletterForm />
 
         {/* Bottom Bar */}
         <div className='border-t border-white pt-8'>

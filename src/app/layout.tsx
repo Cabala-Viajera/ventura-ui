@@ -2,12 +2,12 @@ import React from 'react'
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import { Footer, Header } from '@components'
+import { TravelFooter, Header } from '@components'
 import './globals.css'
 
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import { SITE_URL, SOCIAL_LINKS } from './_utils/constants'
+import { SITE_URL } from './_utils/constants'
 config.autoAddCss = false
 
 const roboto = Roboto({
@@ -60,7 +60,7 @@ export default function RootLayout({
       <body className={`${roboto.className} antialiased`}>
         <Header />
         {children}
-        <Footer socialLinks={SOCIAL_LINKS} />
+        <TravelFooter />
         <Analytics />
       </body>
     </html>

@@ -20,6 +20,30 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Newsletter signup
+
+The footer subscribes email addresses immediately through Resend. Set these
+server-only variables in `.env.local` and in your hosting provider's environment:
+
+```dotenv
+RESEND_API_KEY=your-resend-api-key
+RESEND_SEGMENT_ID=your-newsletter-segment-id
+```
+
+Create a newsletter segment in the Resend dashboard and copy its ID. Create an
+API key with contact-management access (a sending-only key is insufficient).
+Keep the API key private: never prefix it with `NEXT_PUBLIC_` or commit it.
+Restart the development server after changing environment variables.
+
+To verify the integration, submit a test email in the footer and check that it
+appears subscribed in the configured segment. Repeat the submission to verify
+that no duplicate is created. Unsubscribe the test contact in Resend, then submit
+again to verify reactivation. Check the form on mobile and with keyboard navigation.
+
+This integration only collects subscribers. Send newsletter campaigns through
+Resend; it does not send welcome emails, confirmation emails, or post notifications.
+Missing configuration or provider failures display a retry message.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
