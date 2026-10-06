@@ -7,7 +7,7 @@ export default async function Page() {
     <>
       <Hero
         title='Descubre tu próxima aventura'
-        subtitle='Guia para mochileros y viajeros frecuentes'
+        subtitle='Guia para mochileros y viajeros con presupuesto'
       />
       <section>
         <Suspense fallback={<MainBlogListSkeleton />}>

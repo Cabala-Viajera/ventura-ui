@@ -5,7 +5,7 @@ export default function AboutMe(): JSX.Element {
   return (
     <div className='my-20'>
       <h2 className='m-10 text-4xl font-bold text-center lg:text-start'>
-        Quienes somos
+        Sobre mí
       </h2>
       <div className='flex flex-row items-center gap-10 mx-10'>
         <div>
@@ -20,15 +20,16 @@ export default function AboutMe(): JSX.Element {
             />
           </div>
         </div>
-        <div className='text-justify p-10 w-[50%]'>
+        <div className='text-justify p-10 w-[50%] text-lg'>
           <p>
-            Hola! <br /> Mi nombre es Claudio, soy desarrollador de software y
-            viajero mochilero. Eh visitado 8 paises y 20 ciudades alrededor del
-            mundo en tres años y escribo este blog para compartir mis
-            experiencias y poder ayudar a otros viajeros con las dudas que yo
-            tenia cuando planeaba mis viajes. Me gusta cumplir mis sueños
-            viajando y escuchar a otros compartir sus aventuras alrededor del
-            mundo. Espero pueda animarte a descubrir tu próximo destino.
+            Hola! Mi nombre es Claudio, soy desarrollador de software y viajero
+            mochilero. <br />
+            Eh visitado 8 paises y 20 ciudades alrededor del mundo en tres años
+            y escribo este blog para compartir mis experiencias y poder ayudar a
+            otros viajeros con las dudas que yo tenia cuando planeaba mis
+            viajes. Me gusta cumplir mis sueños viajando y escuchar a otros
+            compartir sus aventuras alrededor del mundo. Espero pueda animarte a
+            descubrir tu próximo destino.
             <br />
             <br />
             <span className='italic'>

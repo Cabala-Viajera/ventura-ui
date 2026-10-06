@@ -89,6 +89,13 @@ src/app/
 
 ## Git Workflow
 
+### Commit Message Convention
+
+- When creating a commit, follow the [Gitmoji convention](https://gitmoji.dev/).
+- Start the commit subject with one emoji that matches the primary change, followed by a space and a concise, imperative description: `<emoji> <description>`.
+- Use ✨ for new features, 🐛 for bug fixes, 💄 for UI or styling changes, ♻️ for refactoring, 📝 for documentation, ✅ for tests, and 🔧 for configuration changes.
+- Examples: `💄 Update travel footer colors`, `✨ Add newsletter signup`, `📝 Document commit conventions`.
+
 **Pre-commit hook** (Husky + lint-staged):
 - Auto-formats changed files with Prettier
 
