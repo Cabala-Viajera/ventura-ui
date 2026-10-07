@@ -5,14 +5,18 @@ import { JSX } from 'react'
 import Link from 'next/link'
 import { Post } from '@/app/_models/Post'
 
-const POSTS_QUERY = `*[_type == "post"][0...6]{ _id, title, slug{current}, description, imgUrl{ asset->{ url } } }`
+const POSTS_QUERY = `*[_type == "post"] | order(_createdAt desc) [0...6]{ _id, title, slug{current}, description, imgUrl{ asset->{ url } } }`
 
 export default async function MainBlogList(): Promise<JSX.Element> {
   let posts: Post[] = []
   let isError = false
 
   try {
-    const result = await sanityClient.fetch<Post[]>(POSTS_QUERY)
+    const result = await sanityClient.fetch<Post[]>(
+      POSTS_QUERY,
+      {},
+      { next: { revalidate: 60 } }
+    )
     posts = Array.isArray(result) ? result : []
   } catch {
     isError = true
