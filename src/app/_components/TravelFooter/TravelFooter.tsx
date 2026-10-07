@@ -165,6 +165,12 @@ export default function TravelFooter({
 
         <div className='mt-10 flex flex-col gap-4 border-t border-foreground/20 pt-7 text-xs leading-6 sm:flex-row sm:items-center sm:justify-between'>
           <p>{copyrightText}</p>
+          <Link
+            href='/privacidad'
+            className={`inline-flex min-h-11 items-center rounded-sm underline underline-offset-4 hover:text-foreground/75 ${focusStyle}`}
+          >
+            Aviso de privacidad
+          </Link>
           <p className='tracking-wider text-foreground'>
             Explora · Descubre · Vive · Comparte
           </p>
