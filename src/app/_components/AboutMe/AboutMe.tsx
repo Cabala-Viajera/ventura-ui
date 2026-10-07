@@ -3,24 +3,24 @@ import { JSX } from 'react'
 
 export default function AboutMe(): JSX.Element {
   return (
-    <div className='my-20'>
-      <h2 className='m-10 text-4xl font-bold text-center lg:text-start'>
+    <div className='mx-auto my-12 md:my-20 w-full max-w-[1400px] px-4 sm:px-6 lg:px-10'>
+      <h2 className='my-6 md:my-10 text-2xl sm:text-4xl font-bold text-center lg:text-start'>
         Sobre mí
       </h2>
-      <div className='flex flex-row items-center gap-10 mx-10'>
-        <div>
-          <div className='w-[200px] relative h-[200px]'>
+      <div className='flex flex-col md:flex-row items-center gap-4 md:gap-10 rounded-2xl bg-white p-5 md:p-8 shadow-md shadow-black/10'>
+        <div className='shrink-0 mb-4 md:mb-0'>
+          <div className='relative size-[150px] md:size-[200px]'>
             <Image
               fill
               priority={false}
-              className='rounded-full object-cover shadow-xl/30'
+              className='rounded-full object-cover shadow-sm shadow-black/10'
               src='/defaultProfile.png'
               alt={'Quienes somos'}
-              sizes='(max-width: 200px) 100vw, 200px'
+              sizes='(min-width: 768px) 200px, 150px'
             />
           </div>
         </div>
-        <div className='text-justify p-10 w-[50%] text-lg'>
+        <div className='w-full min-w-0 md:flex-1 text-left md:text-justify text-base md:text-lg'>
           <p>
             Hola! Mi nombre es Claudio, soy desarrollador de software y viajero
             mochilero. <br />

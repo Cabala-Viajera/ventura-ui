@@ -53,12 +53,12 @@ const SearchBar = ({
         onChange={event => setValue(event.target.value)}
         placeholder={placeholder}
         aria-label={placeholder}
-        className='w-full flex-1 min-w-0 px-4 py-2 outline-none'
+        className='w-full flex-1 min-w-0 px-4 py-3 text-base outline-none'
       />
       <button
         type='submit'
         aria-label='Buscar'
-        className='px-4 py-2 text-white bg-primary cursor-pointer hover:opacity-80 transition-opacity'
+        className='shrink-0 self-stretch min-w-12 px-4 py-3 text-white bg-primary cursor-pointer hover:opacity-80 transition-opacity'
       >
         <FontAwesomeIcon icon={faMagnifyingGlass} aria-hidden='true' />
       </button>

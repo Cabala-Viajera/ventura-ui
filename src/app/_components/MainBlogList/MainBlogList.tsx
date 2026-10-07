@@ -23,15 +23,19 @@ export default async function MainBlogList(): Promise<JSX.Element> {
   }
 
   return (
-    <div className='w-full xl:w-2/3'>
-      <h2 className='m-10 text-4xl font-bold text-center lg:text-start'>
+    <div className='w-full min-w-0'>
+      <h2 className='my-10 text-3xl sm:text-4xl font-bold text-center lg:text-start'>
         Últimas publicaciones
       </h2>
-      <div className='m-0 lg:m-10 flex flex-wrap gap-6 items-center justify-center lg:justify-start w-[1200px]'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center'>
         {posts.length > 0 ? (
           posts.map(post =>
             post.slug?.current ? (
-              <Link key={post._id} href={`/${post.slug?.current}`}>
+              <Link
+                key={post._id}
+                href={`/${post.slug?.current}`}
+                className='w-full max-w-[350px] min-w-0'
+              >
                 <Card
                   title={post.title}
                   description={post.description}
@@ -48,20 +52,21 @@ export default async function MainBlogList(): Promise<JSX.Element> {
             )
           )
         ) : (
-          <div className='flex flex-col items-center justify-center w-[100%] gap-6'>
+          <div className='col-span-full flex flex-col items-center justify-center w-full gap-6'>
             <Image
               src='/assets/not-found.png'
               alt='No posts'
               width={400}
               height={400}
+              className='w-full max-w-[400px] h-auto'
             />
-            <p className={`text-gray-950 text-4xl font-bold -ml-24`}>
+            <p className='text-gray-950 text-3xl sm:text-4xl font-bold text-center'>
               Nada por aquí
             </p>
           </div>
         )}
       </div>
-      <div className=' mt-5 text-center w-[1200px]'>
+      <div className='mt-5 text-center w-full'>
         <Link
           href='/articulos'
           className='mt-4  text-primary font-bold  cursor-pointer underline text-xl hover:opacity-80 transition-opacity'

@@ -90,22 +90,24 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
         imgHeight={350}
         imgUrl={post.thumbnailImgUrl?.asset?.url || ''}
       />
-      <section className='flex min-h-[50vh] w-full px-4 my-10 gap-4'>
-        <div className='w-1/5 text-right font-bold text-primary px-5 flex items-start justify-end gap-2 cursor-pointer'>
+      <section className='mx-auto flex flex-col lg:flex-row min-h-[50vh] w-full max-w-[1400px] px-4 sm:px-6 lg:px-10 my-6 lg:my-10 gap-6 lg:gap-10'>
+        <div className='w-full lg:w-1/5 shrink-0 font-bold text-primary flex items-start lg:justify-end'>
           <Link href='/' className='flex items-center gap-2'>
             <FontAwesomeIcon
               icon={faArrowLeftLong}
-              className='text-3xl'
+              className='text-xl lg:text-3xl'
               aria-hidden='true'
             />
-            <span className='text-3xl'>Inicio</span>
+            <span className='text-xl lg:text-3xl'>Inicio</span>
           </Link>
         </div>
-        <div className='w-4/5'>
-          <h1 className='text-5xl font-bold px-5'>{post.title}</h1>
-          <section className='px-5 py-8 text-lg'>
-            <div className='mb-10'>{post.description}</div>
-            <section className='text-justify pr-[20%]'>
+        <article className='w-full min-w-0 lg:flex-1 max-w-[900px] [overflow-wrap:anywhere]'>
+          <h1 className='text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight'>
+            {post.title}
+          </h1>
+          <section className='py-6 lg:py-8 text-base sm:text-lg leading-relaxed'>
+            <div className='mb-6 lg:mb-10'>{post.description}</div>
+            <section className='text-left md:text-justify'>
               {Array.isArray(post.content) ? (
                 <PortableText value={post.content} components={ptComponents} />
               ) : (
@@ -113,7 +115,7 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
               )}
             </section>
           </section>
-        </div>
+        </article>
       </section>
     </>
   )
