@@ -1,0 +1,37 @@
+name: Ventura-UI
+run-name: ${{github.actor}} is running Ventura-UI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      - develop
+env:
+  NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+  NEXT_PUBLIC_SANITY_DATASET: ${{ vars.SANITY_DATASET }}
+
+jobs:
+  Ventura-UI:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Linters
+        run: npm run lint
+
+      - name: Format Code
+        run: npm run format:check
+
+      - name: Build
+        run: npm run build

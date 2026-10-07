@@ -1,27 +1,68 @@
 {
   "name": "ventura-ui",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "prepare": "husky",
+    "pre-commit": "lint-staged",
+    "pre-push": "npm run lint && npm run format:check"
   },
   "dependencies": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.5.3"
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-brands-svg-icons": "^7.2.0",
+    "@fortawesome/free-solid-svg-icons": "^7.2.0",
+    "@fortawesome/react-fontawesome": "^3.3.0",
+    "@portabletext/react": "^6.0.3",
+    "@sanity/client": "^7.21.0",
+    "@sanity/image-url": "^1.2.0",
+    "@vercel/analytics": "^2.0.1",
+    "next": "^16.2.3",
+    "next-sanity": "^13.3.4",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "resend": "^6.32.0",
+    "sanity": "^6.12.0"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^20",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "^5.0.3",
+    "@vitest/coverage-v8": "^3.2.7",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.2.3",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "jsdom": "^27.0.0",
+    "lint-staged": "^16.1.6",
+    "prettier": "3.6.2",
     "tailwindcss": "^4",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.3",
-    "@eslint/eslintrc": "^3"
+    "typescript": "^5",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.4"
+  },
+  "overrides": {
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "react-dom": "19.2.7",
+    "esbuild": "^0.28.2",
+    "@vercel/frameworks": {
+      "js-yaml": "^3.15.2",
+      "smol-toml": "^1.6.1"
+    },
+    "typeid-js": {
+      "uuid": "^11.1.1"
+    }
   }
 }
