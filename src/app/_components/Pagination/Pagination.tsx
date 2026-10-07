@@ -24,7 +24,7 @@ const getVisiblePages = (currentPage: number, totalPages: number) => {
 }
 
 const linkClass =
-  'min-w-10 px-3 py-2 rounded-lg text-center font-bold text-primary border border-primary hover:opacity-80 transition-opacity'
+  'inline-flex min-w-11 min-h-11 items-center justify-center px-3 py-2 rounded-lg text-center text-sm sm:text-base font-bold text-primary border border-primary hover:opacity-80 transition-opacity'
 
 const Pagination = ({
   currentPage,
@@ -39,7 +39,7 @@ const Pagination = ({
   return (
     <nav
       aria-label='Paginación'
-      className='flex flex-wrap items-center justify-center gap-2 my-10'
+      className='flex flex-wrap items-center justify-center gap-2 mt-8 sm:mt-10'
     >
       {currentPage > 1 && (
         <Link
@@ -56,7 +56,7 @@ const Pagination = ({
           <span
             key={page}
             aria-current='page'
-            className='min-w-10 px-3 py-2 rounded-lg text-center font-bold text-white bg-primary border border-primary'
+            className='inline-flex min-w-11 min-h-11 items-center justify-center px-3 py-2 rounded-lg text-center text-sm sm:text-base font-bold text-white bg-primary border border-primary'
           >
             {page}
           </span>

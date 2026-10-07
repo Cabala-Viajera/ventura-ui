@@ -9,7 +9,7 @@ interface CardProps {
 const Card = (props: CardProps) => {
   return (
     <>
-      <div className='relative w-[350px] h-[250px] cursor-pointer'>
+      <div className='relative w-[350px] max-w-full h-[250px] cursor-pointer'>
         <Image
           src={props.imgUrl || '/assets/post/corea_post.jpg'}
           alt={props.title}

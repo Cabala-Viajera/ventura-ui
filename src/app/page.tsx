@@ -9,11 +9,9 @@ export default async function Page() {
         title='Descubre tu próxima aventura'
         subtitle='Guia para mochileros y viajeros con presupuesto'
       />
-      <section>
+      <section className='mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10'>
         <Suspense fallback={<MainBlogListSkeleton />}>
-          <div className='flex flex-col xl:flex-row'>
-            <MainBlogList />
-          </div>
+          <MainBlogList />
         </Suspense>
       </section>
       <AboutMe />

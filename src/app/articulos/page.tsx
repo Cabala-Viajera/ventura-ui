@@ -89,15 +89,22 @@ const ArticlesPage = async ({
 
   return (
     <>
-      <section className='px-[25%] py-30'>
-        <div className='mb-10'>
+      <section className='mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10 py-8 sm:py-12 lg:py-20'>
+        <h1 className='mb-6 sm:mb-8 text-3xl sm:text-4xl font-bold'>
+          Todos los artículos
+        </h1>
+        <div className='mb-6 sm:mb-10'>
           <SearchBar action='/articulos' defaultValue={query} />
         </div>
-        <div className='flex flex-wrap gap-6 items-start justify-start min-h-[70vh]'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start content-start justify-items-center min-h-[40vh] md:min-h-[70vh]'>
           {posts.length > 0 ? (
             posts.map(post =>
               post.slug?.current ? (
-                <Link key={post._id} href={`/${post.slug.current}`}>
+                <Link
+                  key={post._id}
+                  href={`/${post.slug.current}`}
+                  className='w-full max-w-[350px] min-w-0'
+                >
                   <Card
                     title={post.title}
                     description={post.description}
@@ -114,14 +121,17 @@ const ArticlesPage = async ({
               )
             )
           ) : (
-            <div className='flex flex-col items-center justify-center w-full gap-6'>
+            <div className='col-span-full flex flex-col items-center justify-center w-full gap-6'>
               <Image
                 src='/assets/not-found.png'
                 alt='No posts'
                 width={400}
                 height={400}
+                className='w-full max-w-[400px] h-auto'
               />
-              <p className='text-gray-950 text-4xl font-bold'>Nada por aquí</p>
+              <p className='text-gray-950 text-3xl sm:text-4xl font-bold text-center'>
+                Nada por aquí
+              </p>
             </div>
           )}
         </div>

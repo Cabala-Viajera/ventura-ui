@@ -7,7 +7,7 @@ export const PortableTextImage = ({
   value: { asset: { _ref: string }; alt?: string }
 }) => {
   return (
-    <div className='relative w-full h-96 my-10 rounded-lg'>
+    <div className='w-full my-6 md:my-10 rounded-lg'>
       <Image
         src={builder
           .image(value)
@@ -20,7 +20,7 @@ export const PortableTextImage = ({
         width={700}
         height={400}
         sizes='(max-width: 768px) 100vw, 700px'
-        className='object-contain rounded-lg text-center mx-auto shadow-lg'
+        className='w-full max-w-[700px] h-auto object-contain rounded-lg mx-auto shadow-lg'
       />
     </div>
   )
