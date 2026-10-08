@@ -77,11 +77,15 @@ export const FOOTER_SECTIONS: TravelFooterSection[] = [
 // Reuse known brand profiles; platform homepages are explicit fallbacks until
 // the other brand profiles are supplied. All URLs can be overridden via props.
 export const FOOTER_SOCIALS: TravelFooterSocial[] = [
-  { label: 'Instagram', icon: faInstagram, href: 'https://www.instagram.com/' },
-  { label: 'Facebook', icon: faFacebookF, href: 'https://www.facebook.com/' },
+  {
+    label: 'Instagram',
+    icon: faInstagram,
+    href: 'https://www.instagram.com/cabalaviajera',
+  },
+  /* { label: 'Facebook', icon: faFacebookF, href: 'https://www.facebook.com/' },
   { label: 'X', icon: faXTwitter, href: 'https://x.com/' },
   { label: 'TikTok', icon: faTiktok, href: 'https://www.tiktok.com/' },
-  { label: 'YouTube', icon: faYoutube, href: 'https://www.youtube.com/' },
+  { label: 'YouTube', icon: faYoutube, href: 'https://www.youtube.com/' }, */
 ].map(social => ({
   ...social,
   href:
