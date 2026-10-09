@@ -27,7 +27,7 @@ const Hero = (props: HeroProps) => {
           sizes='100vw'
           priority
         />
-        <div className='absolute inset-0 bg-black/80'></div>
+        <div className='absolute inset-0 bg-black/50'></div>
         <div className='absolute inset-0 flex flex-col items-center justify-center text-white'>
           <h2 className='text-3xl lg:text-6xl font-bold text-shadow-sm text-shadow-white  text-center'>
             {props.title || ''}

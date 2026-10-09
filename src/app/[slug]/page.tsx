@@ -112,7 +112,7 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
       />
       <Hero
         title={post.country || ''}
-        imgHeight={350}
+        imgHeight={550}
         imgUrl={post.thumbnailImgUrl?.asset?.url || ''}
       />
       <section className='mx-auto lg:mx-[15%] grid lg:grid-cols-[max-content_minmax(0,1fr)] min-h-[50vh] w-full lg:w-[70%] px-4 sm:px-6 lg:px-0 my-6 lg:my-10 gap-6 lg:gap-10'>
