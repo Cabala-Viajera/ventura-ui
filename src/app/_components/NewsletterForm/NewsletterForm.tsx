@@ -123,18 +123,16 @@ export default function NewsletterForm() {
         className='mt-4 flex flex-wrap gap-x-4 gap-y-3 text-xs text-foreground'
         aria-label='Beneficios de la newsletter'
       >
-        {['Guías de viaje', 'Ofertas exclusivas', 'Inspiración semanal'].map(
-          benefit => (
-            <li key={benefit} className='flex items-center gap-1.5'>
-              <FontAwesomeIcon
-                icon={faCheck}
-                aria-hidden='true'
-                className='size-3 text-foreground'
-              />
-              {benefit}
-            </li>
-          )
-        )}
+        {['Guías de viaje', 'Inspiración semanal'].map(benefit => (
+          <li key={benefit} className='flex items-center gap-1.5'>
+            <FontAwesomeIcon
+              icon={faCheck}
+              aria-hidden='true'
+              className='size-3 text-foreground'
+            />
+            {benefit}
+          </li>
+        ))}
       </ul>
     </section>
   )
