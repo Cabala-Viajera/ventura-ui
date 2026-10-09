@@ -1,10 +1,4 @@
-import {
-  faFacebookF,
-  faInstagram,
-  faTiktok,
-  faXTwitter,
-  faYoutube,
-} from '@fortawesome/free-brands-svg-icons'
+import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { SOCIAL_LINKS } from '@/app/_utils/constants'
 
