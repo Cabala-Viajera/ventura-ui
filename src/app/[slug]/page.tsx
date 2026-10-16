@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { sanityClient } from '@utils/sanityClient'
 import { Post } from '../_models/Post'
-import { Error, Hero } from '@components'
+import { Error, Hero, ShareButtons } from '@components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
@@ -130,6 +130,7 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
           <h1 className='text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight'>
             {post.title}
           </h1>
+          <ShareButtons title={post.title} url={`${SITE_URL}/${slug}`} />
           <section className='py-6 lg:py-8 text-base sm:text-lg leading-relaxed'>
             <div className='mb-6 lg:mb-10'>{post.description}</div>
             <section className='text-left md:text-justify'>
