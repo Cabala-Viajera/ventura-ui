@@ -14,6 +14,19 @@ afterEach(() => {
 })
 
 describe('NewsletterForm', () => {
+  it('directs previously unsubscribed readers to support', () => {
+    render(<NewsletterForm />)
+
+    expect(
+      screen.getByText(/Si cancelaste tu suscripción y quieres volver/)
+    ).toBeDefined()
+    expect(
+      screen
+        .getByRole('link', { name: 'admin@cabalaviajera.com' })
+        .getAttribute('href')
+    ).toBe('mailto:admin@cabalaviajera.com')
+  })
+
   it('submits only the email, announces progress, and clears it after success', async () => {
     let resolveRequest!: (response: Response) => void
     const fetchMock = vi.fn(
@@ -49,7 +62,12 @@ describe('NewsletterForm', () => {
 
     resolveRequest(new Response(null, { status: 200 }))
     await waitFor(() =>
-      expect(screen.getByRole('status').textContent).toContain('¡Gracias')
+      expect(screen.getByRole('status').textContent).toContain(
+        'Solicitud recibida'
+      )
+    )
+    expect(screen.getByRole('status').textContent).toContain(
+      'Si tu correo es elegible, quedará suscrito. Si cancelaste tu suscripción, contáctanos para volver.'
     )
     expect(input.value).toBe('')
     expect(button.disabled).toBe(false)
@@ -84,7 +102,9 @@ describe('NewsletterForm', () => {
 
       fireEvent.click(screen.getByRole('button', { name: 'Suscribirme' }))
       await waitFor(() =>
-        expect(screen.getByRole('status').textContent).toContain('¡Gracias')
+        expect(screen.getByRole('status').textContent).toContain(
+          'Solicitud recibida'
+        )
       )
       expect(fetchMock).toHaveBeenCalledTimes(2)
     }

@@ -22,7 +22,8 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Newsletter signup
 
-The footer subscribes email addresses immediately through Resend. Set these
+The footer subscribes new email addresses immediately through Resend and preserves
+existing unsubscribe preferences. Set these
 server-only variables in `.env.local` and in your hosting provider's environment:
 
 ```dotenv
@@ -38,7 +39,14 @@ Restart the development server after changing environment variables.
 To verify the integration, submit a test email in the footer and check that it
 appears subscribed in the configured segment. Repeat the submission to verify
 that no duplicate is created. Unsubscribe the test contact in Resend, then submit
-again to verify reactivation. Check the form on mobile and with keyboard navigation.
+again to verify that it remains unsubscribed and its segment membership does not
+change. Accepted submissions receive the same neutral response regardless of
+subscription status. Check the form on mobile and with keyboard navigation.
+
+Previously unsubscribed readers must contact admin@cabalaviajera.com to rejoin.
+Support must verify ownership of the email address before manually reactivating
+the contact in Resend and ensuring it belongs to the newsletter segment. Public
+signup submissions never reactivate existing contacts.
 
 This integration only collects subscribers. Send newsletter campaigns through
 Resend; it does not send welcome emails, confirmation emails, or post notifications.
