@@ -23,8 +23,9 @@ export default function NewsletterForm() {
       }
     : status === 'success'
       ? {
-          title: '¡Gracias por suscribirte!',
-          message: 'Tu próxima aventura empieza en tu correo.',
+          title: 'Solicitud recibida',
+          message:
+            'Si tu correo es elegible, quedará suscrito. Si cancelaste tu suscripción, contáctanos para volver.',
           variant: 'success',
         }
       : status === 'error'
@@ -112,6 +113,16 @@ export default function NewsletterForm() {
           </button>
         </div>
       </form>
+      <p className='mt-3 text-xs leading-6 text-foreground'>
+        Si cancelaste tu suscripción y quieres volver, escríbenos a{' '}
+        <a
+          href='mailto:admin@cabalaviajera.com'
+          className='rounded-sm underline underline-offset-4 hover:text-foreground/75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground'
+        >
+          admin@cabalaviajera.com
+        </a>
+        .
+      </p>
       <NotificationToast
         notification={notification}
         onDismiss={() => {

@@ -124,18 +124,52 @@ describe('POST /api/newsletter', () => {
     })
   })
 
-  it('reactivates a previously unsubscribed contact', async () => {
+  it('preserves unsubscribe preferences across repeated submissions', async () => {
     mocks.get.mockResolvedValue({
       data: { ...contact, unsubscribed: true },
       error: null,
     })
     expect((await POST(request())).status).toBe(200)
-    expect(mocks.update).toHaveBeenCalledWith({
-      id: contact.id,
-      unsubscribed: false,
-    })
+    expect((await POST(request())).status).toBe(200)
+    expect(mocks.create).not.toHaveBeenCalled()
+    expect(mocks.update).not.toHaveBeenCalled()
+    expect(mocks.list).not.toHaveBeenCalled()
+    expect(mocks.add).not.toHaveBeenCalled()
   })
 
+  it('preserves unsubscribe preferences after concurrent contact creation', async () => {
+    mocks.get
+      .mockResolvedValueOnce({ data: null, error: { statusCode: 404 } })
+      .mockResolvedValueOnce({
+        data: { ...contact, unsubscribed: true },
+        error: null,
+      })
+    mocks.create.mockResolvedValue({ data: null, error: providerError })
+
+    expect((await POST(request())).status).toBe(200)
+    expect(mocks.get).toHaveBeenCalledTimes(2)
+    expect(mocks.update).not.toHaveBeenCalled()
+    expect(mocks.list).not.toHaveBeenCalled()
+    expect(mocks.add).not.toHaveBeenCalled()
+  })
+
+  it.each(['new', 'active', 'unsubscribed'])(
+    'returns the same neutral response for a %s contact',
+    async state => {
+      if (state === 'new') {
+        mocks.get.mockResolvedValue({ data: null, error: { statusCode: 404 } })
+      } else {
+        mocks.get.mockResolvedValue({
+          data: { ...contact, unsubscribed: state === 'unsubscribed' },
+          error: null,
+        })
+      }
+
+      const response = await POST(request())
+      expect(response.status).toBe(200)
+      expect(await response.json()).toEqual({ message: 'Solicitud recibida.' })
+    }
+  )
   it('recovers when another request creates the contact concurrently', async () => {
     mocks.get.mockResolvedValueOnce({ data: null, error: { statusCode: 404 } })
     mocks.create.mockResolvedValue({ data: null, error: providerError })
@@ -152,16 +186,11 @@ describe('POST /api/newsletter', () => {
     }
   )
 
-  it.each(['get', 'create', 'update', 'list', 'add'] as const)(
+  it.each(['get', 'create', 'list', 'add'] as const)(
     'does not report success or expose provider details when %s fails',
     async operation => {
       if (operation === 'create')
         mocks.get.mockResolvedValue({ data: null, error: { statusCode: 404 } })
-      if (operation === 'update')
-        mocks.get.mockResolvedValue({
-          data: { ...contact, unsubscribed: true },
-          error: null,
-        })
       if (operation === 'add')
         mocks.list.mockResolvedValue({ data: { data: [] }, error: null })
       mocks[operation].mockResolvedValue({ data: null, error: providerError })
