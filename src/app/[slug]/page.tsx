@@ -108,7 +108,10 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
     <>
       <script
         type='application/ld+json'
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        // Escape '<' so CMS content cannot terminate the HTML script element.
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
       />
       <Hero
         title={post.country || ''}

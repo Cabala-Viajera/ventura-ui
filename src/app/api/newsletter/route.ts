@@ -1,6 +1,7 @@
 import { Resend } from 'resend'
 
 const failureMessage = 'No pudimos suscribirte. Inténtalo de nuevo.'
+const acceptedMessage = 'Solicitud recibida.'
 
 export async function POST(request: Request) {
   let email: string
@@ -64,16 +65,13 @@ export async function POST(request: Request) {
           segmentId,
         })
         if (added.error) throw new Error('Segment assignment failed')
-        return Response.json({ message: '¡Gracias por suscribirte!' })
+        return Response.json({ message: acceptedMessage })
       }
     }
 
     if (contact.unsubscribed) {
-      const updated = await resend.contacts.update({
-        id: contact.id,
-        unsubscribed: false,
-      })
-      if (updated.error) throw new Error('Contact update failed')
+      // Public submissions cannot override an existing unsubscribe preference.
+      return Response.json({ message: acceptedMessage })
     }
 
     let subscribedToSegment = false
@@ -104,7 +102,7 @@ export async function POST(request: Request) {
       if (added.error) throw new Error('Segment assignment failed')
     }
 
-    return Response.json({ message: '¡Gracias por suscribirte!' })
+    return Response.json({ message: acceptedMessage })
   } catch {
     return Response.json({ message: failureMessage }, { status: 503 })
   }
