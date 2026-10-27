@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it, vi } from 'vitest'
-import type { Post } from '../_models/Post'
-import { SITE_URL } from '../_utils/constants'
+import type { Post } from '../../_models/Post'
+import { SITE_URL } from '../../_utils/constants'
 import PostPage from './page'
 
 const { fetchPost } = vi.hoisted(() => ({ fetchPost: vi.fn() }))
@@ -14,6 +14,10 @@ vi.mock('@components', () => ({
   Error: () => null,
   Hero: () => null,
   ShareButtons: () => null,
+}))
+
+vi.mock('@/app/_components/LanguageSwitcher/LanguageSwitcher', () => ({
+  ArticleLanguages: () => null,
 }))
 
 vi.mock('next-sanity', () => ({ PortableText: () => null }))
@@ -79,6 +83,7 @@ describe('article JSON-LD', () => {
     expect(JSON.parse(script!.textContent!)).toEqual({
       '@context': 'https://schema.org',
       '@type': 'BlogPosting',
+      inLanguage: 'es',
       headline: post.title,
       description: post.description,
       image: post.imgUrl?.asset?.url,

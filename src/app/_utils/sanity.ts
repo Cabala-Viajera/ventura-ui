@@ -6,6 +6,7 @@ export const sanityClient = createSanityClient({
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'development',
   apiVersion: '2025-11-09',
   useCdn: false,
+  perspective: 'published',
 })
 
 export const builder = urlBuilder({

@@ -1,14 +1,16 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 import { useId, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { NotificationToast, type ToastNotification } from '../NotificationToast'
 
-const errorMessage = 'No pudimos suscribirte. Inténtalo de nuevo.'
-
 export default function NewsletterForm() {
+  const t = useTranslations()
+  const errorMessage = t('newsletterError')
   const id = useId()
   const submitButtonRef = useRef<HTMLButtonElement>(null)
   const [email, setEmail] = useState('')
@@ -17,20 +19,19 @@ export default function NewsletterForm() {
 
   const notification: ToastNotification | null = pending
     ? {
-        title: 'Un momento…',
-        message: 'Estamos procesando tu suscripción…',
+        title: t('wait'),
+        message: t('processing'),
         variant: 'loading',
       }
     : status === 'success'
       ? {
-          title: 'Solicitud recibida',
-          message:
-            'Si tu correo es elegible, quedará suscrito. Si cancelaste tu suscripción, contáctanos para volver.',
+          title: t('received'),
+          message: t('eligible'),
           variant: 'success',
         }
       : status === 'error'
         ? {
-            title: 'Algo salió mal',
+            title: t('wentWrong'),
             message: errorMessage,
             variant: 'error',
           }
@@ -64,17 +65,17 @@ export default function NewsletterForm() {
   return (
     <section className='text-foreground' aria-labelledby={`${id}-heading`}>
       <h2 id={`${id}-heading`} className='text-lg font-bold leading-7'>
-        Suscríbete a nuestra newsletter
+        {t('newsletterTitle')}
       </h2>
       <p
         id={`${id}-description`}
         className='mt-3 text-sm leading-7 text-foreground'
       >
-        Recibe guías, destinos y ofertas exclusivas cada semana.
+        {t('newsletterDescription')}
       </p>
       <form onSubmit={handleSubmit} className='mt-5' aria-busy={pending}>
         <label htmlFor={`${id}-email`} className='sr-only'>
-          Correo electrónico
+          {t('email')}
         </label>
         <div className='flex flex-col gap-2 sm:flex-row lg:flex-col xl:flex-row'>
           <div className='relative min-w-0 flex-1'>
@@ -94,7 +95,7 @@ export default function NewsletterForm() {
               onChange={event => setEmail(event.target.value)}
               disabled={pending}
               aria-describedby={`${id}-description`}
-              placeholder='Tu correo electrónico'
+              placeholder={t('emailPlaceholder')}
               className='min-h-12 w-full min-w-0 rounded-xl bg-white py-3 pr-3 pl-11 text-sm text-foreground placeholder:text-foreground/60 focus-visible:outline-none disabled:opacity-70'
             />
           </div>
@@ -104,7 +105,7 @@ export default function NewsletterForm() {
             disabled={pending}
             className='min-h-12 shrink-0 cursor-pointer rounded-xl bg-foreground px-6 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-foreground/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground motion-reduce:transition-none disabled:cursor-wait disabled:opacity-70'
           >
-            {pending ? 'Suscribiendo…' : 'Suscribirme'}
+            {pending ? t('subscribing') : t('subscribe')}
             {!pending && (
               <span aria-hidden='true' className='ml-2'>
                 →
@@ -114,7 +115,7 @@ export default function NewsletterForm() {
         </div>
       </form>
       <p className='mt-3 text-xs leading-6 text-foreground'>
-        Si cancelaste tu suscripción y quieres volver, escríbenos a{' '}
+        {t('rejoin')}{' '}
         <a
           href='mailto:admin@cabalaviajera.com'
           className='rounded-sm underline underline-offset-4 hover:text-foreground/75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground'
@@ -132,9 +133,9 @@ export default function NewsletterForm() {
       />
       <ul
         className='mt-4 flex flex-wrap gap-x-4 gap-y-3 text-xs text-foreground'
-        aria-label='Beneficios de la newsletter'
+        aria-label={t('benefits')}
       >
-        {['Guías de viaje', 'Inspiración semanal'].map(benefit => (
+        {[t('guides'), t('inspiration')].map(benefit => (
           <li key={benefit} className='flex items-center gap-1.5'>
             <FontAwesomeIcon
               icon={faCheck}

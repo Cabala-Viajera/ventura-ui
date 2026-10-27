@@ -1,3 +1,10 @@
+import { getLocale, getTranslations } from 'next-intl/server'
+import {
+  languageFilter,
+  postPath,
+  staticPath,
+  staticAlternates,
+} from '@/i18n/content'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -5,14 +12,14 @@ import { notFound } from 'next/navigation'
 import { Card, Error, Pagination, SearchBar } from '@components'
 import { sanityClient } from '@utils/sanityClient'
 import { Post } from '@/app/_models/Post'
-import { SITE_URL } from '../_utils/constants'
+import { SITE_URL } from '../../_utils/constants'
 
 const PAGE_SIZE = 10
 
 const buildPostsPageQuery = (isSearching: boolean) => {
   const filter = isSearching
-    ? `_type == "post" && (title match $terms || description match $terms)`
-    : `_type == "post"`
+    ? `_type == "post" && ${languageFilter} && (title match $terms || description match $terms)`
+    : `_type == "post" && ${languageFilter}`
 
   return `{
   "posts": *[${filter}] | order(_createdAt desc) [$start...$end]{ _id, title, slug{current}, description, imgUrl{ asset->{ url } } },
@@ -49,10 +56,29 @@ const toSearchTerms = (query: string) =>
     .map(word => `${word.replace(/\*/g, '')}*`)
     .filter(term => term.length > 1)
 
-export const metadata: Metadata = {
-  title: 'Todos los artículos',
-  description: 'Todas las publicaciones de Cábala Viajera.',
-  alternates: { canonical: `${SITE_URL}/articulos` },
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale()
+  const t = await getTranslations()
+  return {
+    title: t('allArticles'),
+    description: t('articlesDescription'),
+    openGraph: {
+      title: t('allArticles'),
+      description: t('articlesDescription'),
+      url: SITE_URL + staticPath(locale, 'articles'),
+      locale: locale === 'es' ? 'es_MX' : 'en_US',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('allArticles'),
+      description: t('articlesDescription'),
+    },
+    alternates: {
+      canonical: SITE_URL + staticPath(locale, 'articles'),
+      ...staticAlternates('articles'),
+    },
+  }
 }
 
 const ArticlesPage = async ({
@@ -60,6 +86,9 @@ const ArticlesPage = async ({
 }: {
   searchParams: SearchParams
 }) => {
+  const locale = await getLocale()
+  const t = await getTranslations()
+  const basePath = staticPath(locale, 'articles')
   const params = await searchParams
   const currentPage = parsePage(params.page)
   const query = parseQuery(params.q)
@@ -70,7 +99,8 @@ const ArticlesPage = async ({
   try {
     data = await sanityClient.fetch<PostsPage>(
       buildPostsPageQuery(terms.length > 0),
-      { start, end: start + PAGE_SIZE, terms }
+      { start, end: start + PAGE_SIZE, terms, locale },
+      { perspective: 'published' }
     )
   } catch {
     data = null
@@ -91,10 +121,10 @@ const ArticlesPage = async ({
     <>
       <section className='mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10 py-8 sm:py-12 lg:py-20'>
         <h1 className='mb-6 sm:mb-8 text-3xl sm:text-4xl font-bold'>
-          Todos los artículos
+          {t('allArticles')}
         </h1>
         <div className='mb-6 sm:mb-10'>
-          <SearchBar action='/articulos' defaultValue={query} />
+          <SearchBar action={basePath} defaultValue={query} />
         </div>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start content-start justify-items-center min-h-[40vh] md:min-h-[70vh]'>
           {posts.length > 0 ? (
@@ -102,7 +132,7 @@ const ArticlesPage = async ({
               post.slug?.current ? (
                 <Link
                   key={post._id}
-                  href={`/${post.slug.current}`}
+                  href={postPath(locale, post.slug.current)}
                   className='w-full max-w-[350px] min-w-0'
                 >
                   <Card
@@ -124,13 +154,13 @@ const ArticlesPage = async ({
             <div className='col-span-full flex flex-col items-center justify-center w-full gap-6'>
               <Image
                 src='/assets/not-found.png'
-                alt='No posts'
+                alt={t('noPosts')}
                 width={400}
                 height={400}
                 className='w-full max-w-[400px] h-auto'
               />
               <p className='text-gray-950 text-3xl sm:text-4xl font-bold text-center'>
-                Nada por aquí
+                {t('empty')}
               </p>
             </div>
           )}
@@ -138,7 +168,7 @@ const ArticlesPage = async ({
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
-          basePath='/articulos'
+          basePath={basePath}
           query={query}
         />
       </section>

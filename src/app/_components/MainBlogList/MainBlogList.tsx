@@ -1,3 +1,5 @@
+import { getLocale, getTranslations } from 'next-intl/server'
+import { postPath, languageFilter } from '@/i18n/content'
 import { Card, Error } from '@components'
 import { sanityClient } from '@utils/sanityClient'
 import Image from 'next/image'
@@ -5,16 +7,18 @@ import { JSX } from 'react'
 import Link from 'next/link'
 import { Post } from '@/app/_models/Post'
 
-const POSTS_QUERY = `*[_type == "post"] | order(_createdAt desc) [0...6]{ _id, title, slug{current}, description, imgUrl{ asset->{ url } } }`
+const POSTS_QUERY = `*[_type == "post" && ${languageFilter}] | order(_createdAt desc) [0...6]{ _id, title, slug{current}, description, imgUrl{ asset->{ url } } }`
 
 export default async function MainBlogList(): Promise<JSX.Element> {
+  const t = await getTranslations()
+  const locale = await getLocale()
   let posts: Post[] = []
   let isError = false
 
   try {
     const result = await sanityClient.fetch<Post[]>(
       POSTS_QUERY,
-      {},
+      { locale },
       { next: { revalidate: 60 } }
     )
     posts = Array.isArray(result) ? result : []
@@ -29,7 +33,7 @@ export default async function MainBlogList(): Promise<JSX.Element> {
   return (
     <div className='w-full min-w-0'>
       <h2 className='my-10 text-3xl sm:text-4xl font-bold text-center lg:text-start'>
-        Últimas publicaciones
+        {t('latest')}
       </h2>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center'>
         {posts.length > 0 ? (
@@ -37,7 +41,7 @@ export default async function MainBlogList(): Promise<JSX.Element> {
             post.slug?.current ? (
               <Link
                 key={post._id}
-                href={`/${post.slug?.current}`}
+                href={postPath(locale, post.slug!.current)}
                 className='w-full max-w-[350px] min-w-0'
               >
                 <Card
@@ -59,24 +63,24 @@ export default async function MainBlogList(): Promise<JSX.Element> {
           <div className='col-span-full flex flex-col items-center justify-center w-full gap-6'>
             <Image
               src='/assets/not-found.png'
-              alt='No posts'
+              alt={t('noPosts')}
               width={400}
               height={400}
               className='w-full max-w-[400px] h-auto'
             />
             <p className='text-gray-950 text-3xl sm:text-4xl font-bold text-center'>
-              Nada por aquí
+              {t('empty')}
             </p>
           </div>
         )}
       </div>
       <div className='mt-5 text-center w-full'>
         <Link
-          href='/articulos'
+          href={locale === 'en' ? '/en/articles' : '/articulos'}
           className='mt-4  text-primary font-bold  cursor-pointer underline text-xl hover:opacity-80 transition-opacity'
-          aria-label='Ver todos los artículos'
+          aria-label={t('viewArticles')}
         >
-          Ver más
+          {t('more')}
         </Link>
       </div>
     </div>

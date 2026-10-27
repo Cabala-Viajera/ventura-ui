@@ -1,6 +1,12 @@
 import { TypedObject } from 'sanity'
 
 export interface Post {
+  language?: 'es' | 'en'
+  translations?: ({
+    _id: string
+    language: 'es' | 'en'
+    slug?: { current: string }
+  } | null)[]
   _id: string
   title: string
   description: string
