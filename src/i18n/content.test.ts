@@ -29,16 +29,20 @@ describe('localized content', () => {
   it('provides every message in both languages', () => {
     expect(Object.keys(en).sort()).toEqual(Object.keys(es).sort())
   })
-  it('queries articles by both slug and language using only published content', async () => {
-    fetch.mockResolvedValue(null)
-    await getPost('en', 'guide')
-    expect(fetch).toHaveBeenLastCalledWith(
-      expect.stringContaining(languageFilter),
-      { locale: 'en', slug: 'guide' },
-      expect.objectContaining({ perspective: 'published' })
-    )
-    expect(fetch.mock.lastCall![0]).toContain('slug.current == $slug')
-  })
+  it.each(['es', 'en'] as const)(
+    'queries %s articles by slug and explicit language using only published content',
+    async locale => {
+      fetch.mockResolvedValue(null)
+      expect(await getPost(locale, 'guide')).toBeNull()
+      expect(languageFilter).toBe('language == $locale')
+      expect(fetch).toHaveBeenLastCalledWith(
+        expect.stringContaining(languageFilter),
+        { locale, slug: 'guide' },
+        expect.objectContaining({ perspective: 'published' })
+      )
+      expect(fetch.mock.lastCall![0]).toContain('slug.current == $slug')
+    }
+  )
   it('uses translated slugs and omits missing translations from alternates', () => {
     const post = {
       _id: 'es-post',

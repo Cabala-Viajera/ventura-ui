@@ -4,10 +4,13 @@ import { SITE_URL } from './_utils/constants'
 import { postAlternates, translationsProjection } from '@/i18n/content'
 import { postPath, staticPath } from '@/i18n/content-paths'
 import type { Post } from './_models/Post'
+import type { Locale } from '@/i18n/routing'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = await sanityClient.fetch<(Post & { _updatedAt: string })[]>(
-    `*[_type == "post" && defined(slug.current) && coalesce(language, "es") in ["es", "en"]]{ _id, language, slug{current}, _updatedAt, ${translationsProjection} }`,
+  const posts = await sanityClient.fetch<
+    (Post & { language: Locale; _updatedAt: string })[]
+  >(
+    `*[_type == "post" && defined(slug.current) && language in ["es", "en"]]{ _id, language, slug{current}, _updatedAt, ${translationsProjection} }`,
     {},
     { perspective: 'published', next: { revalidate: 60 } }
   )
@@ -28,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...staticEntries,
     ...posts.map(post => {
-      const locale = post.language ?? 'es'
+      const locale = post.language
       const slug = post.slug!.current
       return {
         url: SITE_URL + postPath(locale, slug),

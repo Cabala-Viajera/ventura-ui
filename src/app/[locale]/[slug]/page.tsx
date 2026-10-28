@@ -1,7 +1,6 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { getPost, postPath, postAlternates, staticPath } from '@/i18n/content'
-import { ArticleLanguages } from '@/app/_components/LanguageSwitcher/LanguageSwitcher'
 import type { Metadata } from 'next'
 import { Error, Hero, ShareButtons } from '@components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -116,7 +115,6 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
           __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
         }}
       />
-      <ArticleLanguages article={post} slug={slug} />
       <Hero
         title={post.country || ''}
         imgHeight={550}

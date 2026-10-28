@@ -1,4 +1,3 @@
-import { LanguageProvider } from '@/app/_components/LanguageSwitcher/LanguageSwitcher'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
@@ -76,11 +75,9 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={`${roboto.className} antialiased`}>
         <NextIntlClientProvider>
-          <LanguageProvider>
-            <Header />
-            {children}
-            <TravelFooter />
-          </LanguageProvider>
+          <Header />
+          {children}
+          <TravelFooter />
           <Analytics />
         </NextIntlClientProvider>
       </body>

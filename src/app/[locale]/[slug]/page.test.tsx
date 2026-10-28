@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest'
 import type { Post } from '../../_models/Post'
 import { SITE_URL } from '../../_utils/constants'
 import PostPage from './page'
+import { getLocale } from 'next-intl/server'
 
 const { fetchPost } = vi.hoisted(() => ({ fetchPost: vi.fn() }))
 
@@ -14,10 +15,6 @@ vi.mock('@components', () => ({
   Error: () => null,
   Hero: () => null,
   ShareButtons: () => null,
-}))
-
-vi.mock('@/app/_components/LanguageSwitcher/LanguageSwitcher', () => ({
-  ArticleLanguages: () => null,
 }))
 
 vi.mock('next-sanity', () => ({ PortableText: () => null }))
@@ -46,6 +43,21 @@ async function renderPost(overrides: Partial<Post> = {}) {
 }
 
 describe('article JSON-LD', () => {
+  it.each(['es', 'en'] as const)(
+    'returns 404 when the slug has no published post in %s',
+    async locale => {
+      vi.mocked(getLocale).mockResolvedValueOnce(locale)
+      fetchPost.mockResolvedValue(null)
+      await expect(
+        PostPage({ params: Promise.resolve({ slug: 'wrong-language' }) })
+      ).rejects.toThrow('NEXT_HTTP_ERROR_FALLBACK;404')
+      expect(fetchPost).toHaveBeenLastCalledWith(
+        expect.stringContaining('language == $locale'),
+        { locale, slug: 'wrong-language' },
+        expect.objectContaining({ perspective: 'published' })
+      )
+    }
+  )
   it.each(['title', 'description'] as const)(
     'contains injection payloads in %s without creating executable markup',
     async field => {

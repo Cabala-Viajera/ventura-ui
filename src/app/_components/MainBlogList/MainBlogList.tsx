@@ -19,7 +19,7 @@ export default async function MainBlogList(): Promise<JSX.Element> {
     const result = await sanityClient.fetch<Post[]>(
       POSTS_QUERY,
       { locale },
-      { next: { revalidate: 60 } }
+      { perspective: 'published', next: { revalidate: 60 } }
     )
     posts = Array.isArray(result) ? result : []
   } catch {

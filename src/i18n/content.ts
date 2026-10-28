@@ -4,7 +4,7 @@ import type { Post } from '@/app/_models/Post'
 import type { Locale } from './routing'
 import { SITE_URL } from '@/app/_utils/constants'
 
-export const languageFilter = 'coalesce(language, "es") == $locale'
+export const languageFilter = 'language == $locale'
 import { postPath, staticPath } from './content-paths'
 export { postPath, staticPath } from './content-paths'
 export const translationsProjection = `"translations": *[_type == "translation.metadata" && references(^._id)][0].translations[].value->{ _id, language, slug{current} }`

@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { LanguageSwitcher } from '../LanguageSwitcher/LanguageSwitcher'
 import { Link } from '@/i18n/navigation'
 import Image from 'next/image'
@@ -29,9 +28,7 @@ const Header = () => {
           </h1>
         </div>
       </Link>
-      <Suspense>
-        <LanguageSwitcher />
-      </Suspense>
+      <LanguageSwitcher />
     </header>
   )
 }

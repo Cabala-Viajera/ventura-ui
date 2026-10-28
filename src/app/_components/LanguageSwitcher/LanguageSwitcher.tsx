@@ -1,116 +1,89 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
-import type { ReactNode } from 'react'
-import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { useEffect, useId, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
-import type { Post } from '@/app/_models/Post'
-import { postPath, staticPath } from '@/i18n/content-paths'
-
-type ArticleState = { path: string; article: Post; slug: string } | null
-const ArticleContext = createContext<{
-  article: ArticleState
-  setArticle: (article: ArticleState) => void
-}>({ article: null, setArticle: () => {} })
-
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [article, setArticle] = useState<ArticleState>(null)
-  return (
-    <ArticleContext.Provider value={{ article, setArticle }}>
-      {children}
-    </ArticleContext.Provider>
-  )
-}
-
-/** Supply published translation links to the header without fetching CMS data in the browser. */
-export function ArticleLanguages({
-  article,
-  slug,
-}: {
-  article: Post
-  slug: string
-}) {
-  const path = usePathname()
-  const { setArticle } = useContext(ArticleContext)
-  useEffect(() => {
-    setArticle({ path, article, slug })
-    return () => setArticle(null)
-  }, [path, article, slug, setArticle])
-  return null
-}
+import { staticPath } from '@/i18n/content-paths'
 
 export function LanguageSwitcher() {
   const locale = useLocale()
+  const router = useRouter()
   const t = useTranslations()
-  const pathname = usePathname()
-  const search = useSearchParams()
-  const { article } = useContext(ArticleContext)
-  const target = locale === 'es' ? 'en' : 'es'
-  const staticPage = (['home', 'articles', 'privacy'] as const).find(
-    page => staticPath(locale, page) === pathname
-  )
-  let href: string | undefined
-  if (staticPage) {
-    href = staticPath(target, staticPage)
-    const q = search.get('q')
-    if (staticPage === 'articles' && q) href += `?${new URLSearchParams({ q })}`
-  } else if (article?.path === pathname) {
-    const translation = article.article.translations?.find(
-      item => item?.language === target && item.slug?.current
-    )
-    if (translation?.slug?.current)
-      href = postPath(target, translation.slug.current)
-  }
+  const [open, setOpen] = useState(false)
+  const dropdown = useRef<HTMLDivElement>(null)
+  const trigger = useRef<HTMLButtonElement>(null)
+  const optionsId = useId()
+  useEffect(() => {
+    if (!open) return
+    const closeOutside = (event: PointerEvent) => {
+      if (!dropdown.current?.contains(event.target as Node)) setOpen(false)
+    }
+    document.addEventListener('pointerdown', closeOutside)
+    return () => document.removeEventListener('pointerdown', closeOutside)
+  }, [open])
   return (
     <nav
       aria-label={t('switchLanguage')}
       className='ml-3 flex shrink-0 flex-col items-end gap-2 text-sm'
     >
-      <div className='flex gap-3'>
-        {(['es', 'en'] as const).map(language =>
-          language === locale ? (
-            <span
-              key={language}
-              lang={language}
-              aria-current='true'
-              className='font-bold underline underline-offset-4'
-            >
-              {language === 'es' ? 'Español' : 'English'}
-            </span>
-          ) : href ? (
-            <Link
-              key={language}
-              href={href}
-              hrefLang={language}
-              lang={language}
-              className='min-h-11 inline-flex items-center rounded-sm focus-visible:outline-2'
-            >
-              {language === 'es' ? 'Español' : 'English'}
-            </Link>
-          ) : (
-            <span
-              key={language}
-              lang={language}
-              aria-disabled='true'
-              className='text-gray-500'
-            >
-              {language === 'es' ? 'Español' : 'English'}
-            </span>
-          )
+      <div
+        ref={dropdown}
+        className='relative text-primary'
+        onBlur={event => {
+          if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false)
+        }}
+        onKeyDown={event => {
+          if (event.key === 'Escape') {
+            setOpen(false)
+            trigger.current?.focus()
+          }
+        }}
+      >
+        <button
+          ref={trigger}
+          type='button'
+          aria-label={`${t('switchLanguage')}: ${locale.toUpperCase()}`}
+          aria-expanded={open}
+          aria-controls={optionsId}
+          onClick={() => setOpen(!open)}
+          className='inline-flex min-h-11 cursor-pointer items-center gap-3 rounded-sm border border-primary bg-white px-5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
+        >
+          {locale.toUpperCase()}
+          <svg
+            aria-hidden='true'
+            viewBox='0 0 16 16'
+            className={`h-4 w-4 ${open ? 'rotate-180' : ''}`}
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='1.5'
+          >
+            <path d='m4 6 4 4 4-4' />
+          </svg>
+        </button>
+        {open && (
+          <div
+            id={optionsId}
+            className='absolute right-0 z-50 mt-1 w-full overflow-hidden rounded-sm border border-primary bg-white shadow-sm'
+          >
+            {(['es', 'en'] as const).map(language => (
+              <button
+                key={language}
+                type='button'
+                lang={language}
+                aria-current={language === locale ? 'true' : undefined}
+                onClick={() => {
+                  setOpen(false)
+                  trigger.current?.focus()
+                  if (language !== locale) router.push(staticPath(language))
+                }}
+                className='block min-h-11 w-full cursor-pointer px-5 text-left hover:bg-primary/10 focus-visible:bg-primary/10 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary'
+              >
+                {language.toUpperCase()}
+              </button>
+            ))}
+          </div>
         )}
       </div>
-      {!staticPage && !href && (
-        <details className='max-w-44 text-right font-normal'>
-          <summary className='cursor-pointer'>
-            {t('translationUnavailable')}
-          </summary>
-          <p>{t('missingTranslation')}</p>
-          <Link href={staticPath(target)} className='underline'>
-            {t('otherHome')}
-          </Link>
-        </details>
-      )}
     </nav>
   )
 }
