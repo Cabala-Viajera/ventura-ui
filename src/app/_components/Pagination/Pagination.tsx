@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 
 interface PaginationProps {
@@ -32,23 +33,24 @@ const Pagination = ({
   basePath,
   query,
 }: PaginationProps) => {
+  const t = useTranslations()
   if (totalPages <= 1) {
     return null
   }
 
   return (
     <nav
-      aria-label='Paginación'
+      aria-label={t('pagination')}
       className='flex flex-wrap items-center justify-center gap-2 mt-8 sm:mt-10'
     >
       {currentPage > 1 && (
         <Link
           href={getPageHref(basePath, currentPage - 1, query)}
           className={linkClass}
-          aria-label='Página anterior'
+          aria-label={t('previousPage')}
           rel='prev'
         >
-          Anterior
+          {t('previous')}
         </Link>
       )}
       {getVisiblePages(currentPage, totalPages).map(page =>
@@ -65,7 +67,7 @@ const Pagination = ({
             key={page}
             href={getPageHref(basePath, page, query)}
             className={linkClass}
-            aria-label={`Página ${page}`}
+            aria-label={t('page', { page })}
           >
             {page}
           </Link>
@@ -75,10 +77,10 @@ const Pagination = ({
         <Link
           href={getPageHref(basePath, currentPage + 1, query)}
           className={linkClass}
-          aria-label='Página siguiente'
+          aria-label={t('nextPage')}
           rel='next'
         >
-          Siguiente
+          {t('next')}
         </Link>
       )}
     </nav>

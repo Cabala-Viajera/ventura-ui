@@ -1,5 +1,7 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCircleCheck,
@@ -51,8 +53,9 @@ const variants = {
 export default function NotificationToast({
   notification,
   onDismiss,
-  dismissLabel = 'Cerrar notificación',
+  dismissLabel,
 }: NotificationToastProps) {
+  const t = useTranslations()
   const appearance = notification ? variants[notification.variant] : null
   const loading = notification?.variant === 'loading'
 
@@ -85,7 +88,7 @@ export default function NotificationToast({
           {!loading && onDismiss && (
             <button
               type='button'
-              aria-label={dismissLabel}
+              aria-label={dismissLabel ?? t('dismiss')}
               onClick={onDismiss}
               className='-mt-1 -mr-1 flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-foreground/70 transition-colors hover:bg-gray-100 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground motion-reduce:transition-none'
             >

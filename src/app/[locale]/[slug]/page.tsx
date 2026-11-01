@@ -1,25 +1,15 @@
+import { getLocale, getTranslations } from 'next-intl/server'
+import { notFound } from 'next/navigation'
+import { getPost, postPath, postAlternates, staticPath } from '@/i18n/content'
 import type { Metadata } from 'next'
-import { sanityClient } from '@utils/sanityClient'
-import { Post } from '../_models/Post'
 import { Error, Hero, ShareButtons } from '@components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import { PortableText } from 'next-sanity'
 import type { PortableTextComponents } from '@portabletext/react'
-import { PortableTextImage } from '../_components/Sanity/SanityComponents'
-import { SITE_URL } from '../_utils/constants'
-
-const getPostBySlugQuery =
-  '*[_type == "post" && slug.current == $slug][0]{ _id, title, slug{current}, description, country ,imgUrl{ asset->{ url } }, thumbnailImgUrl{ asset->{ url } }, content }'
-
-const getPost = async (slug: string) => {
-  try {
-    return await sanityClient.fetch<Post | null>(getPostBySlugQuery, { slug })
-  } catch {
-    return null
-  }
-}
+import { PortableTextImage } from '../../_components/Sanity/SanityComponents'
+import { SITE_URL } from '../../_utils/constants'
 
 export const generateMetadata = async ({
   params,
@@ -27,10 +17,17 @@ export const generateMetadata = async ({
   params: Promise<{ slug: string }>
 }): Promise<Metadata> => {
   const { slug } = await params
-  const post = await getPost(slug)
+  const locale = await getLocale()
+  const t = await getTranslations()
+  let post
+  try {
+    post = await getPost(locale, slug)
+  } catch {
+    return { title: t('error') }
+  }
 
   if (!post) {
-    return { title: 'Publicación no encontrada' }
+    return { title: t('postMissing'), robots: { index: false } }
   }
 
   const image = post.imgUrl?.asset?.url || post.thumbnailImgUrl?.asset?.url
@@ -38,14 +35,13 @@ export const generateMetadata = async ({
   return {
     title: post.title,
     description: post.description,
-    alternates: {
-      canonical: `${SITE_URL}/${slug}`,
-    },
+    alternates: postAlternates(post, locale, slug),
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `${SITE_URL}/${slug}`,
+      url: `${SITE_URL}${postPath(locale, slug)}`,
       type: 'article',
+      locale: locale === 'es' ? 'es_MX' : 'en_US',
       images: image ? [{ url: image }] : undefined,
     },
     twitter: {
@@ -59,11 +55,16 @@ export const generateMetadata = async ({
 
 const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params
-  const post = await getPost(slug)
-
-  if (!post || !post._id) {
+  const locale = await getLocale()
+  const t = await getTranslations()
+  let post
+  try {
+    post = await getPost(locale, slug)
+  } catch {
     return <Error />
   }
+
+  if (!post || !post._id) notFound()
 
   const ptComponents: Partial<PortableTextComponents> = {
     types: {
@@ -98,10 +99,11 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
+    inLanguage: locale,
     headline: post.title,
     description: post.description,
     image: post.imgUrl?.asset?.url || post.thumbnailImgUrl?.asset?.url,
-    mainEntityOfPage: `${SITE_URL}/${slug}`,
+    mainEntityOfPage: `${SITE_URL}${postPath(locale, slug)}`,
   }
 
   return (
@@ -120,27 +122,30 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
       />
       <section className='mx-auto lg:mx-[15%] grid lg:grid-cols-[max-content_minmax(0,1fr)] min-h-[50vh] w-full lg:w-[70%] px-4 sm:px-6 lg:px-0 my-6 lg:my-10 gap-6 lg:gap-10'>
         <div className='min-w-0 font-bold text-primary flex items-start'>
-          <Link href='/' className='flex items-center gap-2'>
+          <Link href={staticPath(locale)} className='flex items-center gap-2'>
             <FontAwesomeIcon
               icon={faArrowLeftLong}
               className='text-xl lg:text-3xl'
               aria-hidden='true'
             />
-            <span className='text-xl lg:text-3xl'>Inicio</span>
+            <span className='text-xl lg:text-3xl'>{t('home')}</span>
           </Link>
         </div>
         <article className='w-full min-w-0 [overflow-wrap:anywhere]'>
           <h1 className='text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight'>
             {post.title}
           </h1>
-          <ShareButtons title={post.title} url={`${SITE_URL}/${slug}`} />
+          <ShareButtons
+            title={post.title}
+            url={`${SITE_URL}${postPath(locale, slug)}`}
+          />
           <section className='py-6 lg:py-8 text-base sm:text-lg leading-relaxed'>
             <div className='mb-6 lg:mb-10'>{post.description}</div>
             <section className='text-left md:text-justify'>
               {Array.isArray(post.content) ? (
                 <PortableText value={post.content} components={ptComponents} />
               ) : (
-                <div>No Disponible</div>
+                <div>{t('unavailable')}</div>
               )}
             </section>
           </section>

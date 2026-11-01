@@ -1,5 +1,7 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 import { useEffect, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,8 +16,9 @@ interface SearchBarProps {
 const SearchBar = ({
   action,
   defaultValue = '',
-  placeholder = 'Buscar artículos',
+  placeholder,
 }: SearchBarProps) => {
+  const t = useTranslations()
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [value, setValue] = useState(defaultValue)
@@ -51,13 +54,13 @@ const SearchBar = ({
         name='q'
         value={value}
         onChange={event => setValue(event.target.value)}
-        placeholder={placeholder}
-        aria-label={placeholder}
+        placeholder={placeholder ?? t('searchArticles')}
+        aria-label={placeholder ?? t('searchArticles')}
         className='w-full flex-1 min-w-0 px-4 py-3 text-base outline-none'
       />
       <button
         type='submit'
-        aria-label='Buscar'
+        aria-label={t('search')}
         className='shrink-0 self-stretch min-w-12 px-4 py-3 text-white bg-primary cursor-pointer hover:opacity-80 transition-opacity'
       >
         <FontAwesomeIcon icon={faMagnifyingGlass} aria-hidden='true' />
