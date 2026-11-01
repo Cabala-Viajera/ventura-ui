@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 
 interface CardProps {
@@ -7,6 +8,7 @@ interface CardProps {
 }
 
 const Card = (props: CardProps) => {
+  const t = useTranslations()
   return (
     <>
       <div className='relative w-[350px] max-w-full h-[250px] cursor-pointer'>
@@ -19,8 +21,12 @@ const Card = (props: CardProps) => {
         />
         <div className='absolute inset-0 bg-black/60 rounded-2xl'></div>
         <div className='absolute bottom-5 left-5 text-white  text-shadow-sm/10 text-shadow-white'>
-          <h3 className='text-2xl font-bold '>{props.title || 'Sin título'}</h3>
-          <p className='text-sm mt-1'>{props.description || 'No disponible'}</p>
+          <h3 className='text-2xl font-bold '>
+            {props.title || t('untitled')}
+          </h3>
+          <p className='text-sm mt-1'>
+            {props.description || t('notAvailable')}
+          </p>
         </div>
       </div>
     </>

@@ -1,4 +1,5 @@
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NewsletterForm } from '../NewsletterForm'
 import {
@@ -26,10 +27,11 @@ const dongle = Dongle({
 
 export default function TravelFooter({
   brandName = 'Cábala Viajera',
-  tagline = 'Guías para mochileros y viajeros con presupuesto',
-  copyrightText = '© 2026 Cábala Viajera. Todos los derechos reservados.',
+  tagline,
+  copyrightText,
   socialLinks = FOOTER_SOCIALS,
 }: TravelFooterProps) {
+  const t = useTranslations()
   return (
     <footer className='relative isolate overflow-hidden bg-primary/90 text-foreground'>
       <div
@@ -87,13 +89,13 @@ export default function TravelFooter({
               </span>
             </Link>
             <p className='max-w-64 text-sm leading-7 text-foreground'>
-              {tagline}
+              {tagline ?? t('tagline')}
             </p>
 
             <p className='mt-5 font-serif text-lg italic text-foreground'>
-              Buenas rutas,
+              {t('goodRoutes')}
               <br />
-              mejores historias
+              {t('betterStories')}
             </p>
           </section>
 
@@ -102,17 +104,16 @@ export default function TravelFooter({
           </div>
 
           <section
-            aria-label='Síguenos'
+            aria-label={t('follow')}
             className='border-t border-foreground/20 pt-9 lg:border-t-0 lg:border-l lg:pl-8 lg:pt-0 xl:pl-10'
           >
-            <h2 className='text-lg font-bold'>Síguenos</h2>
+            <h2 className='text-lg font-bold'>{t('follow')}</h2>
             <p className='mt-3 max-w-sm text-sm leading-7 text-foreground'>
-              Únete a nuestra comunidad viajera y comparte tus propias
-              aventuras.
+              {t('community')}
             </p>
             <ul
               className='mt-6 flex flex-wrap gap-2.5 lg:gap-1 xl:gap-2.5'
-              aria-label='Redes sociales'
+              aria-label={t('social')}
             >
               {socialLinks.map(({ label, icon, href }) => (
                 <li key={label}>
@@ -120,7 +121,7 @@ export default function TravelFooter({
                     href={href}
                     target='_blank'
                     rel='noopener noreferrer'
-                    aria-label={`${label} (abre en una pestaña nueva)`}
+                    aria-label={t('newTab', { label })}
                     className={`flex size-11 items-center justify-center rounded-full border border-foreground/30 text-foreground transition-colors hover:border-foreground hover:bg-foreground hover:text-white motion-reduce:transition-none ${focusStyle}`}
                   >
                     <FontAwesomeIcon
@@ -164,16 +165,14 @@ export default function TravelFooter({
         </nav> */}
 
         <div className='mt-10 flex flex-col gap-4 border-t border-foreground/20 pt-7 text-xs leading-6 sm:flex-row sm:items-center sm:justify-between'>
-          <p>{copyrightText}</p>
+          <p>{copyrightText ?? t('copyright')}</p>
           <Link
             href='/privacidad'
             className={`inline-flex min-h-11 items-center rounded-sm underline underline-offset-4 hover:text-foreground/75 ${focusStyle}`}
           >
-            Aviso de privacidad
+            {t('privacy')}
           </Link>
-          <p className='tracking-wider text-foreground'>
-            Explora · Descubre · Vive · Comparte
-          </p>
+          <p className='tracking-wider text-foreground'>{t('explore')}</p>
         </div>
       </div>
     </footer>

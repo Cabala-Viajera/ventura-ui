@@ -127,3 +127,6 @@ Note: These are public environment variables (prefixed with `NEXT_PUBLIC_`), so 
 - The `[slug]/page.tsx` handles dynamic routing for blog posts
 - The app is built with Turbopack for faster builds and development
 - Consider using Suspense + skeleton components for better perceived performance when fetching from Sanity
+
+## Ventura CMS
+- Ventura CMS is our CMS for this project always at the same level of the project "../ventura-cms"
