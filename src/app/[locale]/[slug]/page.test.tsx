@@ -17,8 +17,11 @@ vi.mock('@components', () => ({
   ShareButtons: () => null,
 }))
 
-vi.mock('next-sanity', () => ({ PortableText: () => null }))
-vi.mock('../_components/Sanity/SanityComponents', () => ({
+vi.mock('next-sanity', async () => {
+  const { PortableText } = await import('@portabletext/react')
+  return { PortableText }
+})
+vi.mock('../../_components/Sanity/SanityComponents', () => ({
   PortableTextImage: () => null,
 }))
 
@@ -43,6 +46,39 @@ async function renderPost(overrides: Partial<Post> = {}) {
 }
 
 describe('article JSON-LD', () => {
+  it('renders tip alerts from post content with formatted text', async () => {
+    const { document } = await renderPost({
+      content: [
+        {
+          _type: 'alert',
+          _key: 'tip',
+          title: 'Travel tip',
+          body: [
+            {
+              _type: 'block',
+              _key: 'tip-text',
+              style: 'normal',
+              markDefs: [],
+              children: [
+                {
+                  _type: 'span',
+                  _key: 'tip-span',
+                  text: 'Bring water.',
+                  marks: ['strong'],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    })
+
+    const alert = document.querySelector('aside')
+    expect(alert?.classList.contains('bg-primary/15')).toBe(true)
+    expect(alert?.textContent).toContain('Travel tip')
+    expect(alert?.querySelector('strong')?.textContent).toBe('Bring water.')
+  })
+
   it.each(['es', 'en'] as const)(
     'returns 404 when the slug has no published post in %s',
     async locale => {
