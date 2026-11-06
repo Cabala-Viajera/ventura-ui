@@ -7,6 +7,7 @@ afterEach(cleanup)
 
 vi.mock('next/image', () => ({
   default: ({ alt, src }: { alt: string; src: string }) => (
+    // eslint-disable-next-line @next/next/no-img-element -- Use a native image to mock next/image in tests.
     <img alt={alt} src={src} />
   ),
 }))

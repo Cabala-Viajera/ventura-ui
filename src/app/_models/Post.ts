@@ -1,4 +1,4 @@
-import { TypedObject } from 'sanity'
+import type { ArbitraryTypedObject } from '@portabletext/types'
 
 export interface Post {
   language?: 'es' | 'en'
@@ -22,5 +22,5 @@ export interface Post {
       url?: string
     }
   }
-  content?: TypedObject[]
+  content?: ArbitraryTypedObject[]
 }

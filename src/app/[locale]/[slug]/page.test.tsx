@@ -17,10 +17,6 @@ vi.mock('@components', () => ({
   ShareButtons: () => null,
 }))
 
-vi.mock('next-sanity', async () => {
-  const { PortableText } = await import('@portabletext/react')
-  return { PortableText }
-})
 vi.mock('../../_components/Sanity/SanityComponents', () => ({
   PortableTextImage: () => null,
 }))
