@@ -27,6 +27,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Audit dependencies
+        run: npm audit
+
+      - name: Tests
+        run: npm run test -- --run
+
       - name: Linters
         run: npm run lint
 

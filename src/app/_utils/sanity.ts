@@ -1,5 +1,5 @@
 import urlBuilder from '@sanity/image-url'
-import { createClient as createSanityClient } from 'next-sanity'
+import { createClient as createSanityClient } from '@sanity/client'
 
 export const sanityClient = createSanityClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '',

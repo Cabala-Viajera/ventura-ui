@@ -6,9 +6,10 @@ import { Error, Hero, ShareButtons } from '@components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeftLong } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
-import { PortableText } from 'next-sanity'
+import { PortableText } from '@portabletext/react'
 import type { PortableTextComponents } from '@portabletext/react'
 import { PortableTextImage } from '../../_components/Sanity/SanityComponents'
+import { PortableTextAlert } from '../../_components/PortableTextAlert'
 import { SITE_URL } from '../../_utils/constants'
 
 export const generateMetadata = async ({
@@ -69,6 +70,7 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const ptComponents: Partial<PortableTextComponents> = {
     types: {
       image: PortableTextImage,
+      alert: PortableTextAlert,
     },
     block: {
       normal: ({ children }) => <p className='mb-5'>{children}</p>,
