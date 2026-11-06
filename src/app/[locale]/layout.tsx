@@ -1,5 +1,5 @@
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import { staticAlternates, staticPath } from '@/i18n/content'
@@ -57,6 +57,7 @@ export async function generateMetadata({
     manifest: '/site.webmanifest',
   }
 }
+
 export function generateStaticParams() {
   return routing.locales.map(locale => ({ locale }))
 }
@@ -69,8 +70,8 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>
 }>) {
   const { locale } = await params
+  console.log('params', params)
   if (!hasLocale(routing.locales, locale)) notFound()
-  setRequestLocale(locale)
   return (
     <html lang={locale}>
       <body className={`${roboto.className} antialiased`}>
