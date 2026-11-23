@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local AI tooling
+CLAUDE.local.md
+**/.claude/settings.local.json
+**/.claude/worktrees/
+/.impeccable/config.local.json
+
+# Locally installed AI skills
+**/.agents/skills
+**/.claude/skills
