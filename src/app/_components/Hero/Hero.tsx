@@ -13,21 +13,21 @@ const Hero = (props: HeroProps) => {
   return (
     <section className='w-full border-b-4 border-primary'>
       <div
-        className={`relative w-full h-[300px] lg:h-[550px] aspect-video`}
+        className={`relative w-full h-[300px] lg:h-[650px] aspect-video`}
         style={{
           height:
             props.imgHeight !== undefined ? `${props.imgHeight}px` : undefined,
         }}
       >
         <Image
-          src={imgUrl || '/assets/hero01.jpg'}
+          src={imgUrl || '/assets/hero02.webp'}
           alt={props.title || 'default hero image'}
           fill
           style={{ objectFit: 'cover' }}
           sizes='100vw'
           priority
         />
-        <div className='absolute inset-0 bg-black/50'></div>
+        <div className='absolute inset-0 bg-black/60'></div>
         <div className='absolute inset-0 flex flex-col items-center justify-center text-white'>
           <h2 className='text-3xl lg:text-6xl font-bold text-shadow-sm text-shadow-white  text-center'>
             {props.title || ''}

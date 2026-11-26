@@ -12,7 +12,7 @@ interface ProfileBackpackersProps {
 
 const ProfileBackpackers: FC<ProfileBackpackersProps> = ({
   title = 'Mochileros destacados',
-  imageUrl = '/defaultProfile.png',
+  imageUrl = '/defaultProfile.webp',
   imageAlt = 'Mochileros destacados',
 }) => {
   return (
