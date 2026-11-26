@@ -16,7 +16,7 @@ export default function AboutMe(): JSX.Element {
               fill
               priority={false}
               className='rounded-full object-cover shadow-sm shadow-black/10'
-              src='/defaultProfile.png'
+              src='/defaultProfile.webp'
               alt={t('aboutAlt')}
               sizes='(min-width: 768px) 200px, 150px'
             />
