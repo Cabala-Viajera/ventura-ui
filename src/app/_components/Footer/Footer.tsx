@@ -9,7 +9,7 @@ const Footer: React.FC<FooterProps> = ({
   copyrightText = '© 2024 All rights reserved.',
 }) => {
   return (
-    <footer className='bg-primary text-gray-300 py-12'>
+    <footer className='bg-primary text-on-primary py-12'>
       <div className='container mx-auto px-4'>
         {/* Social Links */}
         {socialLinks.length > 0 && (
@@ -34,8 +34,8 @@ const Footer: React.FC<FooterProps> = ({
         <NewsletterForm />
 
         {/* Bottom Bar */}
-        <div className='border-t border-white pt-8'>
-          <p className='text-center text-white text-md'>{copyrightText}</p>
+        <div className='border-t border-on-primary/20 pt-8'>
+          <p className='text-center text-md'>{copyrightText}</p>
         </div>
       </div>
     </footer>

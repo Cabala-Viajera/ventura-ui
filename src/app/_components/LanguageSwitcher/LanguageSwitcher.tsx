@@ -28,7 +28,7 @@ export function LanguageSwitcher() {
     >
       <div
         ref={dropdown}
-        className='relative text-primary'
+        className='relative text-secondary'
         onBlur={event => {
           if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false)
         }}
@@ -46,7 +46,7 @@ export function LanguageSwitcher() {
           aria-expanded={open}
           aria-controls={optionsId}
           onClick={() => setOpen(!open)}
-          className='inline-flex min-h-11 cursor-pointer items-center gap-3 rounded-sm border border-primary bg-white px-5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
+          className='inline-flex min-h-11 cursor-pointer items-center gap-3 rounded-sm border border-primary bg-surface-container-lowest px-5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
         >
           {locale.toUpperCase()}
           <svg
@@ -63,7 +63,7 @@ export function LanguageSwitcher() {
         {open && (
           <div
             id={optionsId}
-            className='absolute right-0 z-50 mt-1 w-full overflow-hidden rounded-sm border border-primary bg-white shadow-sm'
+            className='absolute right-0 z-50 mt-1 w-full overflow-hidden rounded-sm border border-primary bg-surface-container-lowest shadow-sm'
           >
             {(['es', 'en'] as const).map(language => (
               <button

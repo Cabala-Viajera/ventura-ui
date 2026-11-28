@@ -15,7 +15,7 @@ export default function NotFound() {
       <div className='w-[400px] text-center flex flex-col gap-4'>
         <h2 className='text-4xl font-bold'>{t('notFound')}</h2>
         <Link href='/'>
-          <p className='text-primary font-bold text-xl underline'>
+          <p className='text-secondary font-bold text-xl underline'>
             {t('backHome')}
           </p>
         </Link>

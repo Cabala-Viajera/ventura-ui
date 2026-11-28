@@ -10,9 +10,9 @@ const dongle = Dongle({
 
 const Header = () => {
   return (
-    <header className='bg-white w-full gap-3 py-2 px-4 sm:px-6 lg:px-[10%] font-bold border-b-1 border-primary flex justify-between items-center'>
+    <header className='bg-surface-container-lowest w-full gap-3 py-2 px-4 sm:px-6 lg:px-[10%] font-bold border-b-1 border-primary flex justify-between items-center'>
       <Link href={'/'} className='min-w-0 max-w-full'>
-        <div className='flex items-center gap-2 sm:gap-4 text-primary sm:mt-4 sm:mx-3'>
+        <div className='flex items-center gap-2 sm:gap-4 text-secondary sm:mt-4 sm:mx-3'>
           <Image
             src={'/assets/logo_cabala_noletters-removebg.png'}
             alt={'Cábala Viajera Logo'}

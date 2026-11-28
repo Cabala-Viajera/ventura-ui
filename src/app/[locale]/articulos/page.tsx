@@ -159,7 +159,7 @@ const ArticlesPage = async ({
                 height={400}
                 className='w-full max-w-[400px] h-auto'
               />
-              <p className='text-gray-950 text-3xl sm:text-4xl font-bold text-center'>
+              <p className='text-3xl sm:text-4xl font-bold text-center'>
                 {t('empty')}
               </p>
             </div>

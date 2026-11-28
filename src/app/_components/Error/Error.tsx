@@ -12,7 +12,7 @@ const Error = () => {
         height={300}
         className='w-full max-w-[300px] h-auto'
       />
-      <p className='text-gray-950 text-2xl sm:text-3xl font-bold my-6 sm:my-10'>
+      <p className='text-2xl sm:text-3xl font-bold my-6 sm:my-10'>
         {t('error')}
       </p>
     </div>

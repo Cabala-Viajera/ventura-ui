@@ -9,7 +9,7 @@ export default function AboutMe(): JSX.Element {
       <h2 className='my-6 md:my-10 text-2xl sm:text-4xl font-bold text-center lg:text-start'>
         {t('about')}
       </h2>
-      <div className='flex flex-col md:flex-row items-center gap-4 md:gap-10 rounded-2xl bg-white p-5 md:p-8 shadow-md shadow-black/10'>
+      <div className='flex flex-col md:flex-row items-center gap-4 md:gap-10 rounded-2xl bg-surface-container-lowest p-5 md:p-8 shadow-md shadow-black/10'>
         <div className='shrink-0 mb-4 md:mb-0'>
           <div className='relative size-[150px] md:size-[200px]'>
             <Image

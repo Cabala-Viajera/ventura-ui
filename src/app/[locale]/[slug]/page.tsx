@@ -123,7 +123,7 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
         imgUrl={post.thumbnailImgUrl?.asset?.url || ''}
       />
       <section className='mx-auto lg:mx-[15%] grid lg:grid-cols-[max-content_minmax(0,1fr)] min-h-[50vh] w-full lg:w-[70%] px-4 sm:px-6 lg:px-0 my-6 lg:my-10 gap-6 lg:gap-10'>
-        <div className='min-w-0 font-bold text-primary flex items-start'>
+        <div className='min-w-0 font-bold text-secondary flex items-start'>
           <Link href={staticPath(locale)} className='flex items-center gap-2'>
             <FontAwesomeIcon
               icon={faArrowLeftLong}
@@ -134,14 +134,12 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
           </Link>
         </div>
         <article className='w-full min-w-0 [overflow-wrap:anywhere]'>
-          <h1 className='text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight'>
-            {post.title}
-          </h1>
+          <h1>{post.title}</h1>
           <ShareButtons
             title={post.title}
             url={`${SITE_URL}${postPath(locale, slug)}`}
           />
-          <section className='py-6 lg:py-8 text-base sm:text-lg leading-relaxed'>
+          <section className='py-6 lg:py-8 text-body-md sm:text-body-lg'>
             <div className='mb-6 lg:mb-10'>{post.description}</div>
             <section className='text-left md:text-justify'>
               {Array.isArray(post.content) ? (

@@ -5,7 +5,7 @@ import { routing } from '@/i18n/routing'
 import { staticAlternates, staticPath } from '@/i18n/content'
 import React from 'react'
 import type { Metadata } from 'next'
-import { Roboto } from 'next/font/google'
+import { Crimson_Pro, Recursive, Spline_Sans_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { TravelFooter, Header } from '@components'
 import '../globals.css'
@@ -15,9 +15,21 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import { SITE_URL } from '../_utils/constants'
 config.autoAddCss = false
 
-const roboto = Roboto({
-  weight: ['400', '700'],
+const crimsonPro = Crimson_Pro({
   subsets: ['latin'],
+  style: ['normal', 'italic'],
+  variable: '--font-crimson-pro',
+})
+
+const recursive = Recursive({
+  subsets: ['latin'],
+  variable: '--font-recursive',
+})
+
+const splineSansMono = Spline_Sans_Mono({
+  subsets: ['latin'],
+  weight: '500',
+  variable: '--font-spline-sans-mono',
 })
 
 const title = 'Cábala Viajera'
@@ -72,8 +84,11 @@ export default async function RootLayout({
   const { locale } = await params
   if (!hasLocale(routing.locales, locale)) notFound()
   return (
-    <html lang={locale}>
-      <body className={`${roboto.className} antialiased`}>
+    <html
+      lang={locale}
+      className={`${crimsonPro.variable} ${recursive.variable} ${splineSansMono.variable}`}
+    >
+      <body className='antialiased'>
         <NextIntlClientProvider>
           <Header />
           {children}

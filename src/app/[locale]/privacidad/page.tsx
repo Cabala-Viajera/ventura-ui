@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 const linkStyle =
-  'rounded-sm underline underline-offset-4 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4'
+  'rounded-sm underline underline-offset-4 hover:text-secondary focus-visible:outline-2 focus-visible:outline-offset-4'
 export default async function PrivacyPage() {
   const locale = await getLocale()
   const t = await getTranslations()
@@ -173,7 +173,7 @@ export default async function PrivacyPage() {
         {t('returnHome')}
       </Link>
       <header className='mt-6 border-b border-foreground/15 pb-8 sm:pb-12'>
-        <p className='text-sm font-bold tracking-widest text-primary uppercase'>
+        <p className='text-sm font-bold tracking-widest text-secondary uppercase'>
           Cábala Viajera
         </p>
         <h1 className='mt-4 text-4xl font-bold tracking-tight sm:text-5xl'>
