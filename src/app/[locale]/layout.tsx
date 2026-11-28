@@ -13,6 +13,7 @@ import '../globals.css'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { SITE_URL } from '../_utils/constants'
+import { ThemeProvider } from '../_components/Header/ThemeProvider'
 config.autoAddCss = false
 
 const crimsonPro = Crimson_Pro({
@@ -89,12 +90,14 @@ export default async function RootLayout({
       className={`${crimsonPro.variable} ${recursive.variable} ${splineSansMono.variable}`}
     >
       <body className='antialiased'>
-        <NextIntlClientProvider>
-          <Header />
-          {children}
-          <TravelFooter />
-          <Analytics />
-        </NextIntlClientProvider>
+        <ThemeProvider>
+          <NextIntlClientProvider>
+            <Header />
+            {children}
+            <TravelFooter />
+            <Analytics />
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -5,7 +5,11 @@ import { useRouter } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { staticPath } from '@/i18n/content-paths'
 
-export function LanguageSwitcher() {
+export function LanguageSwitcher({
+  onLanguageChange,
+}: {
+  onLanguageChange?: () => void
+}) {
   const locale = useLocale()
   const router = useRouter()
   const t = useTranslations()
@@ -24,16 +28,17 @@ export function LanguageSwitcher() {
   return (
     <nav
       aria-label={t('switchLanguage')}
-      className='ml-3 flex shrink-0 flex-col items-end gap-2 text-sm'
+      className='flex shrink-0 flex-col items-end text-label-lg'
     >
       <div
         ref={dropdown}
-        className='relative text-secondary'
+        className='relative'
         onBlur={event => {
           if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false)
         }}
         onKeyDown={event => {
-          if (event.key === 'Escape') {
+          if (event.key === 'Escape' && open) {
+            event.preventDefault()
             setOpen(false)
             trigger.current?.focus()
           }
@@ -46,7 +51,7 @@ export function LanguageSwitcher() {
           aria-expanded={open}
           aria-controls={optionsId}
           onClick={() => setOpen(!open)}
-          className='inline-flex min-h-11 cursor-pointer items-center gap-3 rounded-sm border border-primary bg-surface-container-lowest px-5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
+          className='inline-flex min-h-11 cursor-pointer items-center gap-gutter-xs rounded-full border border-outline-variant px-3 transition-colors hover:bg-surface-container-low focus-visible:outline-2 focus-visible:outline-offset-2'
         >
           {locale.toUpperCase()}
           <svg
@@ -63,7 +68,7 @@ export function LanguageSwitcher() {
         {open && (
           <div
             id={optionsId}
-            className='absolute right-0 z-50 mt-1 w-full overflow-hidden rounded-sm border border-primary bg-surface-container-lowest shadow-sm'
+            className='absolute right-0 z-50 mt-gutter-xs w-full overflow-hidden rounded-sm border border-outline-variant bg-surface-container-lowest shadow-sm'
           >
             {(['es', 'en'] as const).map(language => (
               <button
@@ -74,9 +79,12 @@ export function LanguageSwitcher() {
                 onClick={() => {
                   setOpen(false)
                   trigger.current?.focus()
-                  if (language !== locale) router.push(staticPath(language))
+                  if (language !== locale) {
+                    onLanguageChange?.()
+                    router.push(staticPath(language))
+                  }
                 }}
-                className='block min-h-11 w-full cursor-pointer px-5 text-left hover:bg-primary/10 focus-visible:bg-primary/10 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary'
+                className='block min-h-11 w-full cursor-pointer px-3 text-left hover:bg-surface-container-low focus-visible:bg-surface-container-low focus-visible:outline-2 focus-visible:-outline-offset-2'
               >
                 {language.toUpperCase()}
               </button>
