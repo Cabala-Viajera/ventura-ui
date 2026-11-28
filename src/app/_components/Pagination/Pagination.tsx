@@ -25,7 +25,7 @@ const getVisiblePages = (currentPage: number, totalPages: number) => {
 }
 
 const linkClass =
-  'inline-flex min-w-11 min-h-11 items-center justify-center px-3 py-2 rounded-lg text-center text-sm sm:text-base font-bold text-primary border border-primary hover:opacity-80 transition-opacity'
+  'inline-flex min-w-11 min-h-11 items-center justify-center px-3 py-2 rounded-lg text-center text-sm sm:text-base font-bold text-secondary border border-primary hover:opacity-80 transition-opacity'
 
 const Pagination = ({
   currentPage,
@@ -58,7 +58,7 @@ const Pagination = ({
           <span
             key={page}
             aria-current='page'
-            className='inline-flex min-w-11 min-h-11 items-center justify-center px-3 py-2 rounded-lg text-center text-sm sm:text-base font-bold text-white bg-primary border border-primary'
+            className='inline-flex min-w-11 min-h-11 items-center justify-center px-3 py-2 rounded-lg text-center text-sm sm:text-base font-bold text-on-primary bg-primary border border-primary'
           >
             {page}
           </span>

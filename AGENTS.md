@@ -67,9 +67,11 @@ src/app/
 
 ### Styling
 
-- **Tailwind CSS v4**: All styling is utility-based
-- **Global styles**: `src/app/globals.css` 
-- **Font**: Roboto from Google Fonts (400, 700 weights) via Next.js font optimization
+Use [DESIGN.md](./DESIGN.md) as the source of truth for visual and content decisions. Read the relevant sections before changing a page or component, including its component reference when available.
+
+- Use Tailwind CSS v4 utilities backed by the shared tokens in `src/app/globals.css`. Reuse those tokens for colors, typography, spacing, corner radii, and motion.
+- Pair semantic colors with their matching foregrounds, such as `bg-primary` with `text-on-primary`. Check changes in both light and dark modes, which follow the system preference.
+- Use Crimson Pro for editorial headings, Recursive for body text, navigation, and controls, and Spline Sans Mono with tabular numerals for dates and trail metadata. The locale layout loads all three through `next/font`.
 - **Icons**: Font Awesome v7 with React integration (pre-configured to prevent CSS duplication in layout.tsx)
 
 ### Testing
@@ -88,6 +90,12 @@ src/app/
 - **Import**: `import { useCustomHook } from '@hooks'`
 
 ## Git Workflow
+
+### Branch Naming Convention
+
+- Name new working branches `<type>/<short-description>` using lowercase kebab-case for the description.
+- Use `feature` for new features, `fix` for bug fixes, `style` for visual changes, `refactor` for internal restructuring, `docs` for documentation, `test` for test changes, and `chore` for tooling or maintenance.
+- Examples: `feature/add-newsletter-signup`, `fix/locale-root-params`, `style/update-design-system`.
 
 ### Commit Message Convention
 

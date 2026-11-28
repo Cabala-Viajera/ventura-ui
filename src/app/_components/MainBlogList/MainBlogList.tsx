@@ -68,7 +68,7 @@ export default async function MainBlogList(): Promise<JSX.Element> {
               height={400}
               className='w-full max-w-[400px] h-auto'
             />
-            <p className='text-gray-950 text-3xl sm:text-4xl font-bold text-center'>
+            <p className='text-3xl sm:text-4xl font-bold text-center'>
               {t('empty')}
             </p>
           </div>
@@ -77,7 +77,7 @@ export default async function MainBlogList(): Promise<JSX.Element> {
       <div className='mt-5 text-center w-full'>
         <Link
           href={locale === 'en' ? '/en/articles' : '/articulos'}
-          className='mt-4  text-primary font-bold  cursor-pointer underline text-xl hover:opacity-80 transition-opacity'
+          className='mt-4  text-secondary font-bold  cursor-pointer underline text-xl hover:opacity-80 transition-opacity'
           aria-label={t('viewArticles')}
         >
           {t('more')}

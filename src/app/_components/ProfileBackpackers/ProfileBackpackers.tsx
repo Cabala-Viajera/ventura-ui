@@ -31,7 +31,7 @@ const ProfileBackpackers: FC<ProfileBackpackersProps> = ({
       <div className='w-[350px] mt-5 text-center'>
         <Link
           href='#'
-          className='mt-4 text-primary font-bold  cursor-pointer underline text-xl hover:opacity-80 transition-opacity'
+          className='mt-4 text-secondary font-bold  cursor-pointer underline text-xl hover:opacity-80 transition-opacity'
           aria-label='Ver historia del mochilero'
         >
           Ver historia

@@ -63,14 +63,11 @@ export default function NewsletterForm() {
   }
 
   return (
-    <section className='text-foreground' aria-labelledby={`${id}-heading`}>
+    <section aria-labelledby={`${id}-heading`}>
       <h2 id={`${id}-heading`} className='text-lg font-bold leading-7'>
         {t('newsletterTitle')}
       </h2>
-      <p
-        id={`${id}-description`}
-        className='mt-3 text-sm leading-7 text-foreground'
-      >
+      <p id={`${id}-description`} className='mt-3 text-sm leading-7'>
         {t('newsletterDescription')}
       </p>
       <form onSubmit={handleSubmit} className='mt-5' aria-busy={pending}>
@@ -82,7 +79,7 @@ export default function NewsletterForm() {
             <FontAwesomeIcon
               icon={faEnvelope}
               aria-hidden='true'
-              className='pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2 text-primary'
+              className='pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2 text-secondary'
             />
             <input
               id={`${id}-email`}
@@ -96,14 +93,14 @@ export default function NewsletterForm() {
               disabled={pending}
               aria-describedby={`${id}-description`}
               placeholder={t('emailPlaceholder')}
-              className='min-h-12 w-full min-w-0 rounded-xl bg-white py-3 pr-3 pl-11 text-sm text-foreground placeholder:text-foreground/60 focus-visible:outline-none disabled:opacity-70'
+              className='min-h-12 w-full min-w-0 rounded-xl bg-surface-container-lowest py-3 pr-3 pl-11 text-sm text-on-surface placeholder:text-on-surface-variant focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-primary disabled:opacity-70'
             />
           </div>
           <button
             ref={submitButtonRef}
             type='submit'
             disabled={pending}
-            className='min-h-12 shrink-0 cursor-pointer rounded-xl bg-foreground px-6 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-foreground/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground motion-reduce:transition-none disabled:cursor-wait disabled:opacity-70'
+            className='min-h-12 shrink-0 cursor-pointer rounded-xl bg-on-primary px-6 py-3 text-sm font-bold text-primary shadow-md transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-primary motion-reduce:transition-none disabled:cursor-wait disabled:opacity-70'
           >
             {pending ? t('subscribing') : t('subscribe')}
             {!pending && (
@@ -114,11 +111,11 @@ export default function NewsletterForm() {
           </button>
         </div>
       </form>
-      <p className='mt-3 text-xs leading-6 text-foreground'>
+      <p className='mt-3 text-xs leading-6'>
         {t('rejoin')}{' '}
         <a
           href='mailto:admin@cabalaviajera.com'
-          className='rounded-sm underline underline-offset-4 hover:text-foreground/75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground'
+          className='rounded-sm underline underline-offset-4 hover:text-on-primary/75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-primary'
         >
           admin@cabalaviajera.com
         </a>
@@ -132,7 +129,7 @@ export default function NewsletterForm() {
         }}
       />
       <ul
-        className='mt-4 flex flex-wrap gap-x-4 gap-y-3 text-xs text-foreground'
+        className='mt-4 flex flex-wrap gap-x-4 gap-y-3 text-xs'
         aria-label={t('benefits')}
       >
         {[t('guides'), t('inspiration')].map(benefit => (
@@ -140,7 +137,7 @@ export default function NewsletterForm() {
             <FontAwesomeIcon
               icon={faCheck}
               aria-hidden='true'
-              className='size-3 text-foreground'
+              className='size-3'
             />
             {benefit}
           </li>

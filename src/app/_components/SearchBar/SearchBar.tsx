@@ -47,7 +47,7 @@ const SearchBar = ({
       method='get'
       role='search'
       aria-busy={isPending}
-      className='flex items-center w-full border border-primary rounded-lg overflow-hidden bg-white'
+      className='flex items-center w-full border border-primary rounded-lg overflow-hidden bg-surface-container-lowest'
     >
       <input
         type='search'
@@ -61,7 +61,7 @@ const SearchBar = ({
       <button
         type='submit'
         aria-label={t('search')}
-        className='shrink-0 self-stretch min-w-12 px-4 py-3 text-white bg-primary cursor-pointer hover:opacity-80 transition-opacity'
+        className='shrink-0 self-stretch min-w-12 px-4 py-3 text-on-primary bg-primary cursor-pointer hover:opacity-80 transition-opacity'
       >
         <FontAwesomeIcon icon={faMagnifyingGlass} aria-hidden='true' />
       </button>

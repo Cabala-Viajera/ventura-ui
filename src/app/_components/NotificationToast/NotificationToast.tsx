@@ -68,7 +68,7 @@ export default function NotificationToast({
     >
       {notification && appearance && (
         <div
-          className={`flex items-start gap-3 rounded-2xl border border-gray-200 border-l-4 ${appearance.borderStyle} bg-white p-4 text-foreground shadow-[0_12px_40px_rgba(0,0,0,0.18)]`}
+          className={`flex items-start gap-3 rounded-2xl border border-outline-variant border-l-4 ${appearance.borderStyle} bg-surface-container-lowest p-4 text-foreground shadow-[0_12px_40px_rgba(0,0,0,0.18)]`}
         >
           <span
             className={`flex size-10 shrink-0 items-center justify-center rounded-full ${appearance.iconStyle}`}
@@ -90,7 +90,7 @@ export default function NotificationToast({
               type='button'
               aria-label={dismissLabel ?? t('dismiss')}
               onClick={onDismiss}
-              className='-mt-1 -mr-1 flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-foreground/70 transition-colors hover:bg-gray-100 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground motion-reduce:transition-none'
+              className='-mt-1 -mr-1 flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-foreground/70 transition-colors hover:bg-surface-container-high hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground motion-reduce:transition-none'
             >
               <FontAwesomeIcon
                 icon={faXmark}

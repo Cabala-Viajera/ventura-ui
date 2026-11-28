@@ -18,7 +18,7 @@ export interface TravelFooterProps {
 }
 
 const focusStyle =
-  'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground'
+  'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-on-primary'
 
 const dongle = Dongle({
   subsets: ['latin'],
@@ -33,7 +33,7 @@ export default function TravelFooter({
 }: TravelFooterProps) {
   const t = useTranslations()
   return (
-    <footer className='relative isolate overflow-hidden bg-primary/90 text-foreground'>
+    <footer className='relative isolate overflow-hidden bg-primary/90 text-on-primary'>
       <div
         aria-hidden='true'
         className='pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--color-secondary)_25%,transparent),transparent_65%)]'
@@ -59,7 +59,7 @@ export default function TravelFooter({
         aria-hidden='true'
         focusable='false'
         viewBox='0 0 330 180'
-        className='pointer-events-none absolute -right-10 top-12 -z-10 w-64 text-foreground/90 lg:right-4 lg:w-80'
+        className='pointer-events-none absolute -right-10 top-12 -z-10 w-64 text-on-primary/90 lg:right-4 lg:w-80'
         fill='none'
       >
         <path
@@ -88,27 +88,27 @@ export default function TravelFooter({
                 {brandName}
               </span>
             </Link>
-            <p className='max-w-64 text-sm leading-7 text-foreground'>
+            <p className='max-w-64 text-sm leading-7 text-on-primary'>
               {tagline ?? t('tagline')}
             </p>
 
-            <p className='mt-5 font-serif text-lg italic text-foreground'>
+            <p className='mt-5 font-serif text-lg italic text-on-primary'>
               {t('goodRoutes')}
               <br />
               {t('betterStories')}
             </p>
           </section>
 
-          <div className='border-t border-foreground/20 pt-9 lg:border-t-0 lg:border-l lg:px-8 lg:pt-0 xl:px-10'>
+          <div className='border-t border-on-primary/20 pt-9 lg:border-t-0 lg:border-l lg:px-8 lg:pt-0 xl:px-10'>
             <NewsletterForm />
           </div>
 
           <section
             aria-label={t('follow')}
-            className='border-t border-foreground/20 pt-9 lg:border-t-0 lg:border-l lg:pl-8 lg:pt-0 xl:pl-10'
+            className='border-t border-on-primary/20 pt-9 lg:border-t-0 lg:border-l lg:pl-8 lg:pt-0 xl:pl-10'
           >
             <h2 className='text-lg font-bold'>{t('follow')}</h2>
-            <p className='mt-3 max-w-sm text-sm leading-7 text-foreground'>
+            <p className='mt-3 max-w-sm text-sm leading-7 text-on-primary'>
               {t('community')}
             </p>
             <ul
@@ -122,7 +122,7 @@ export default function TravelFooter({
                     target='_blank'
                     rel='noopener noreferrer'
                     aria-label={t('newTab', { label })}
-                    className={`flex size-11 items-center justify-center rounded-full border border-foreground/30 text-foreground transition-colors hover:border-foreground hover:bg-foreground hover:text-white motion-reduce:transition-none ${focusStyle}`}
+                    className={`flex size-11 items-center justify-center rounded-full border border-on-primary/30 text-on-primary transition-colors hover:border-on-primary hover:bg-on-primary hover:text-primary motion-reduce:transition-none ${focusStyle}`}
                   >
                     <FontAwesomeIcon
                       icon={icon}
@@ -133,7 +133,7 @@ export default function TravelFooter({
                 </li>
               ))}
             </ul>
-            {/* <p className='mt-5 text-xs tracking-wide text-foreground'>
+            {/* <p className='mt-5 text-xs tracking-wide text-on-primary'>
               El viaje sigue, también aquí.
             </p> */}
           </section>
@@ -141,11 +141,11 @@ export default function TravelFooter({
 
         {/* <nav
           aria-label='Navegación del pie de página'
-          className='mt-12 grid grid-cols-2 gap-x-6 gap-y-9 border-t border-foreground/20 pt-10 sm:grid-cols-3 lg:mt-14 lg:grid-cols-5 lg:gap-8 lg:pt-12'
+          className='mt-12 grid grid-cols-2 gap-x-6 gap-y-9 border-t border-on-primary/20 pt-10 sm:grid-cols-3 lg:mt-14 lg:grid-cols-5 lg:gap-8 lg:pt-12'
         >
           {sections.map(section => (
             <div key={section.title}>
-              <h2 className='mb-3 text-sm font-bold tracking-wide text-foreground'>
+              <h2 className='mb-3 text-sm font-bold tracking-wide text-on-primary'>
                 {section.title}
               </h2>
               <ul>
@@ -153,7 +153,7 @@ export default function TravelFooter({
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className={`inline-flex min-h-11 items-center rounded-sm py-2 text-sm leading-5 text-foreground transition-colors hover:text-foreground/75 hover:underline motion-reduce:transition-none ${focusStyle}`}
+                      className={`inline-flex min-h-11 items-center rounded-sm py-2 text-sm leading-5 text-on-primary transition-colors hover:text-on-primary/75 hover:underline motion-reduce:transition-none ${focusStyle}`}
                     >
                       {link.label}
                     </Link>
@@ -164,15 +164,15 @@ export default function TravelFooter({
           ))}
         </nav> */}
 
-        <div className='mt-10 flex flex-col gap-4 border-t border-foreground/20 pt-7 text-xs leading-6 sm:flex-row sm:items-center sm:justify-between'>
+        <div className='mt-10 flex flex-col gap-4 border-t border-on-primary/20 pt-7 text-xs leading-6 sm:flex-row sm:items-center sm:justify-between'>
           <p>{copyrightText ?? t('copyright')}</p>
           <Link
             href='/privacidad'
-            className={`inline-flex min-h-11 items-center rounded-sm underline underline-offset-4 hover:text-foreground/75 ${focusStyle}`}
+            className={`inline-flex min-h-11 items-center rounded-sm underline underline-offset-4 hover:text-on-primary/75 ${focusStyle}`}
           >
             {t('privacy')}
           </Link>
-          <p className='tracking-wider text-foreground'>{t('explore')}</p>
+          <p className='tracking-wider text-on-primary'>{t('explore')}</p>
         </div>
       </div>
     </footer>
